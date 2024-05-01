@@ -25,14 +25,12 @@ $(NAME) : $(OBJS)
 	@make all -sC ./libft_ext
 	@echo "$(GREEN)Compiling Libft.$(CLEAR)"
 	@make all -sC ./mlx
-	@echo "$(GREEN)Compiling Mlx.$(CLEAR)"
-	@$(CC) $(CFLAGS) $(OBJS) -I ../../includes/so_long.h $(LIBFTA) $(MLXA) $(MLXFLAGS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) -I ../../includes/minishell.h $(LIBFTA) $(MLXA) $(MLXFLAGS) -o $(NAME)
 	@echo "$(GREEN)So_long Compiled.$(CLEAR)"
 
 clean:
 	@$(RM) $(OBJS)
 	@make clean -sC libft_ext
-	@make clean -sC mlx
 	@echo "$(RED)All Objs Deleted.$(CLEAR)"
 
 fclean: clean
