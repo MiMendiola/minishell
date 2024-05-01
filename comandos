@@ -1,0 +1,3 @@
+git branch -> ver que ramas tenemos
+git branch NOMBRE -> crear esa rama
+git checkout NOMBRE -> moverse a esa rama
