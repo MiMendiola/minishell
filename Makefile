@@ -2,11 +2,9 @@
 NAME = minishell
 
 # SOURCE FILES
-SRC_DIR			=	src/
+SRC_DIR		=	src/
 
-SRC_FILES =	main.c \
-
-
+SRC_FILES	=	minishell.c \
 
 SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 
@@ -15,11 +13,12 @@ OBJ_DIR		= objs/
 OBJ_FILES 	= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 #COMPILER
-CC		= gcc #-g -O3 -fsanitize=address
-FLAGS	= -Wall -Wextra -Werror
-INCLUDE = -I includes
+CC		= cc
+FLAGS	= -Wall -Wextra -Werror -g3 #-fsanitize=address
+LDFLAGS = -lreadline
+INCLUDE	= -I includes
 RM		= rm -rf
-LIBFT = libft/libft.a
+LIBFT	= libft/libft.a
 
 # COLORS
 RED		=	\033[91;1m
@@ -34,25 +33,28 @@ all: $(NAME)
 
 $(NAME) : $(OBJ_FILES)
 	@make -sC libft
-	@echo "$(GREEN)Compiling the minishell program.$(CLEAR)"
-	$(CC) $(FLAGS) $(INCLUDE) $(LIBFT) $(OBJ_FILES) -o $(NAME)
-	@echo "$(GREEN)[OK]\n$(CLEAR)$(GREEN)Success!$(CLEAR)\n"
+	@echo "$(GREEN)\nCompiling the minishell program.$(CLEAR)"
+	@$(CC) $(FLAGS) $(OBJ_FILES) $(INCLUDE) $(LIBFT) $(LDFLAGS) -o $(NAME)
+	@echo "$(GREEN)	[OK]\n$(CLEAR)$(GREEN)      Success!$(CLEAR)\n"
 	
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
 	$(CC) $(FLAGS) -c $< -o $@
 	
 clean:
-	@echo "$(BLUE)Removing compiled files.$(CLEAR)"
-	$(RM) $(OBJ_DIR)
-	@make -C libft/ clean
-	@echo "$(BLUE)Object files removed correctly\n$(CLEAR)"
+	@echo "$(RED)\nRemoving compiled files.$(CLEAR)"
+	@$(RM) $(OBJ_DIR)
+	@make clean -sC libft
+	@echo "$(RED)	[OK]\n$(CLEAR)$(RED)      Success!$(CLEAR)\n"
+	@echo "$(RED)Object files removed correctly\n$(CLEAR)"
 
-fclean: clean
-	@echo "$(BLUE)Removing exec. files.$(CLEAR)"
-	$(RM) $(NAME)
-	@make -C libft/ fclean
-	@echo "$(BLUE)Object files and binary removed correctly\n$(CLEAR)"
+fclean: 
+	@make clean >/dev/null 2>&1
+	@echo "$(RED)\nRemoving exec. files.$(CLEAR)"
+	@$(RM) $(NAME)
+	@$(RM) $(LIBFT)
+	@echo "$(RED)	[OK]\n$(CLEAR)$(RED)      Success!$(CLEAR)\n"
+	@echo "$(RED)Everything removed correctly\n$(CLEAR)"
 
 re: fclean all
 

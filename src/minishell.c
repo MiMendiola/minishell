@@ -10,4 +10,39 @@
 /*                                                                            */
 /* ************************************************************************** */
 
- 
+#include "../includes/minishell.h"
+
+// void	ft_leaks(void)
+// {
+// 	system("leaks -q pipex");
+// }
+// atexit(ft_leaks);
+
+int main(int ac, char **av, char **env)
+{
+    char *input;
+
+    if (ac == 0 && av == NULL && env == NULL)
+        printf("Hello");
+    
+    while (1)
+    {
+        input = readline("");
+        
+        if (!input)
+            break;
+
+        if (ft_strcmp(input, "exit") == 0)
+        {
+            printf("exit\n");
+            exit(EXIT_FAILURE);
+        }
+
+        add_history(input);
+
+        printf("You write: '%s'\n", input);
+
+        free(input);
+    }
+    return (0);
+}
