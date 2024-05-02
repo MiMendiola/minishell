@@ -11,10 +11,12 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+
+// void	ft_leaks(void)
+// {
+// 	system("leaks -q pipex");
+// }
+// atexit(ft_leaks);
 
 int main(int ac, char **av, char **env)
 {
@@ -25,17 +27,20 @@ int main(int ac, char **av, char **env)
     
     while (1)
     {
-        input = readline("Ingrese algo: ");
+        input = readline("");
         
         if (!input)
             break;
 
-        if (strcmp(input, "exit") == 0)
+        if (ft_strcmp(input, "exit") == 0)
+        {
+            printf("exit\n");
             exit(EXIT_FAILURE);
+        }
 
         add_history(input);
 
-        printf("Usted escribió: '%s'\n", input);
+        printf("You write: '%s'\n", input);
 
         free(input);
     }
