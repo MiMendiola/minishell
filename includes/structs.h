@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   additional.h                                       :+:      :+:    :+:   */
+/*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 17:42:16 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/05/03 14:06:32 by mmendiol         ###   ########.fr       */
+/*   Created: 2024/05/03 13:29:16 by mmendiol          #+#    #+#             */
+/*   Updated: 2024/05/03 15:17:51 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ADDITIONAL_H
-# define ADDITIONAL_H
+#ifndef STRUCTS_H
+# define STRUCTS_H
 
-# include "./libft.h"
+typedef struct s_token	t_token;
 
-// FUNCTIONS ADDED LATER
-void	free_matrix(char **matrix);
-long	ft_atol(const char *str);
-int		ft_strcmp(const char *s1, const char *s2);
-int		ft_strchr_bool(const char *s, int c);
+struct					s_token
+{
+	int					id;
+	char				*str;
+	t_token				*prev;
+	t_token				*next;
+};
 
 #endif
