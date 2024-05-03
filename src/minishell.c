@@ -18,13 +18,27 @@
 // }
 // atexit(ft_leaks);
 
+void    show_history()
+{
+    HIST_ENTRY **history;
+    int        width;
+
+    width = 6;
+    history = history_list();
+    if (history)
+    {
+        int j = -1;
+        while (history[++j])
+            printf("%*d  %s\n", width, j + history_base, history[j]->line);
+    }
+}
+
 int main(int ac, char **av, char **env)
 {
     char *input;
 
     if (ac == 0 && av == NULL && env == NULL)
         printf("Hello");
-    
     while (1)
     {
         input = readline("");
@@ -37,11 +51,13 @@ int main(int ac, char **av, char **env)
             printf("exit\n");
             exit(EXIT_FAILURE);
         }
-
-        add_history(input);
+        if (ft_strcmp(input, "") != 0)
+            add_history(input);
 
         printf("You write: '%s'\n", input);
-
+        if (ft_strcmp(input, "history") == 0)
+            show_history();
+        
         free(input);
     }
     return (0);
