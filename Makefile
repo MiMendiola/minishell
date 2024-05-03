@@ -35,7 +35,7 @@ $(NAME) : $(OBJ_FILES)
 	@make -sC libft
 	@echo "$(GREEN)\nCompiling the minishell program.$(CLEAR)"
 	@$(CC) $(FLAGS) $(OBJ_FILES) $(INCLUDE) $(LIBFT) $(LDFLAGS) -o $(NAME)
-	@echo "$(GREEN)	[OK]\n$(CLEAR)$(GREEN)      Success!$(CLEAR)\n"
+	@echo "$(GREEN)	      [OK]\n$(CLEAR)$(GREEN)      	    Success!$(CLEAR)\n"
 	
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
