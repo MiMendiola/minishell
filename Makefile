@@ -5,6 +5,9 @@ NAME = minishell
 SRC_DIR		=	src/
 
 SRC_FILES	=	minishell.c \
+				tokenizer.c \
+				utils_stack.c \
+				built-ins/history.c
 
 SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 
@@ -38,7 +41,7 @@ $(NAME) : $(OBJ_FILES)
 	@echo "$(GREEN)	      [OK]\n$(CLEAR)$(GREEN)      	    Success!$(CLEAR)\n"
 	
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(@D)
 	$(CC) $(FLAGS) -c $< -o $@
 	
 clean:
