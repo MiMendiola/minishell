@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/05/06 15:15:27 by anadal-g         ###   ########.fr       */
+/*   Created: 2024/05/06 15:14:17 by anadal-g          #+#    #+#             */
+/*   Updated: 2024/05/06 15:14:20 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef STRUCTS_H
+# define STRUCTS_H
 
-# include "./defines.h"
-# include "./structs.h"
-# include "../libft/includes/libft.h"
-# include <fcntl.h>
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/wait.h>
-# include <unistd.h>
+typedef struct s_token	t_token;
+
+struct					s_token
+{
+	int					id;
+	char				*str;
+	t_token				*prev;
+	t_token				*next;
+};
 
 #endif
