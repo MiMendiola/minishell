@@ -3,24 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/05/01 18:27:46 by anadal-g         ###   ########.fr       */
+/*   Updated: 2024/05/03 13:30:35 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <unistd.h>
+# include "./defines.h"
+# include "./structs.h"
+# include "../libft/includes/libft.h"
+# include <fcntl.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/wait.h>
-# include <fcntl.h>
-# include "../libft/includes/libft.h"
-# include <readline/readline.h>
-# include <readline/history.h>
-
+# include <unistd.h>
 
 #endif
