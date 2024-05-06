@@ -1,26 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 13:29:16 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/05/06 17:58:20 by mmendiol         ###   ########.fr       */
+/*   Created: 2024/05/06 15:08:26 by anadal-g          #+#    #+#             */
+/*   Updated: 2024/05/06 15:08:27 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
-
-typedef struct s_token	t_token;
-
-struct					s_token
-{
-	int					id;
-	char				*str;
-	t_token				*prev;
-	t_token				*next;
-};
-
-#endif
