@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:08:26 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/05/09 18:58:52 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/05/09 19:40:15 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ static int	tokens_counter(char *str, char c)
 			while (str[i] && !character_finder(str[i], quote))
 				i++;
 		}
-		else if (!character_finder(str[i], c) && (character_finder(str[i + 1],
-					c) || str[i + 1] == '\0'))
+		if (!character_finder(str[i], c) && (character_finder(str[i + 1], c)
+				|| str[i + 1] == '\0'))
 			token++;
 	}
 	return (token);
