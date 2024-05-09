@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:15 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/05/06 17:05:37 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/05/09 19:00:34 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,12 @@ int	main(int ac, char **av, char **env)
 		create_tokens(input, tokens);
 		if (ft_strcmp(input, HSTRY_TXT) == 0)
 			show_history();
+		// char	**pipe;
+		// int		x;
+		// pipe = pipe_spliter(input);
+		// x = -1;
+		// while (pipe[++x])
+		// 	printf("\t@ %d: [%s]\n", x, pipe[x]);
 		free(input);
 	}
 	return (0);

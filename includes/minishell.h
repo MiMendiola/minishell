@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/05/06 17:58:10 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/05/08 17:26:40 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
+
+
+char	**pipe_spliter(char const *s);
+
+
+
 
 /*===========================================*/
 /*                TOKENIZER.C                */

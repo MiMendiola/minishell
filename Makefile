@@ -7,7 +7,8 @@ SRC_DIR		=	src/
 SRC_FILES	=	minishell.c \
 				tokenizer.c \
 				utils_stack.c \
-				built-ins/history.c
+				built-ins/history.c \
+				parsing/parsing.c
 
 SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 
