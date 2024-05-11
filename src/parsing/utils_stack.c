@@ -6,11 +6,11 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:02:31 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/05/10 17:26:52 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/05/11 19:22:45 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	free_list(t_token **stack)
 {
@@ -19,7 +19,8 @@ void	free_list(t_token **stack)
 	while (*stack)
 	{
 		aux = (*stack)->next;
-		free((*stack)->str);
+		free((*stack)->command);
+		free_matrix((*stack)->tokens);
 		free(*stack);
 		*stack = aux;
 	}
@@ -48,7 +49,7 @@ void	add_node_back(t_token **stack, t_token *new)
 		*stack = new;
 }
 
-t_token	*create_node(int id, char *str)
+t_token	*create_node(int id, char *command)
 {
 	t_token	*tokens;
 
@@ -56,7 +57,8 @@ t_token	*create_node(int id, char *str)
 	if (!tokens)
 		return (NULL);
 	tokens->id = id;
-	tokens->str = str;
+	tokens->command = command;
+	tokens->tokens = command_spliter(command, ' ');
 	tokens->prev = NULL;
 	tokens->next = NULL;
 	return (tokens);
