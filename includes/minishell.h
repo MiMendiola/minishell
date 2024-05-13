@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
 /*   Updated: 2024/05/11 21:32:32 by mmendiol         ###   ########.fr       */
@@ -23,6 +23,8 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
+#include <signal.h>
+
 
 void	show_lst(t_token **stack);
 
@@ -54,5 +56,11 @@ void	free_list(t_token **stack);
 t_token	*last_node(t_token *lst);
 void	add_node_back(t_token **stack, t_token *new);
 t_token	*create_node(int id, char *str);
+
+/*===========================================*/
+/*                SIGNALS.C                  */
+/*===========================================*/
+void    crtl_c(int  sign);
+void    signal_input(void);
 
 #endif
