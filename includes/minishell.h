@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/05/06 17:15:08 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/05/07 15:14:42 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
+#include <signal.h>
+
 
 /*===========================================*/
 /*                TOKENIZER.C                */
@@ -42,5 +44,14 @@ t_token	*create_node(int id, char *str);
 /*                 HISTORY.C                 */
 /*===========================================*/
 void	show_history(void);
+
+
+/*===========================================*/
+/*                SIGNALS.C                  */
+/*===========================================*/
+
+void    crtl_c(int  sign);
+void    signal_input(void);
+
 
 #endif
