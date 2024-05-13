@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 16:32:46 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/12 17:35:13 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/05/10 16:32:59 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*ft_calloc(size_t count, size_t size)
 {
 	void	*str;
 
-	if (count == SIZE_MAX && size == SIZE_MAX)
+	if (size != 0 && count > SIZE_MAX / size)
 		return (NULL);
 	str = malloc(count * size);
 	if (!str)

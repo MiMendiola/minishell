@@ -5,10 +5,11 @@ NAME = minishell
 SRC_DIR		=	src/
 
 SRC_FILES	=	minishell.c \
-				tokenizer.c \
-				utils_stack.c \
-				built-ins/history.c \
-				signals/signals.c 
+                built-ins/core_builtins.c \
+                built-ins/history.c \
+                parsing/parsing.c \
+                parsing/tokenizer.c \
+                parsing/utils_stack.c \
 
 SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 
@@ -18,7 +19,7 @@ OBJ_FILES 	= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 #COMPILER
 CC		= cc
-FLAGS	= -Wall -Wextra -Werror -g3 #-fsanitize=address
+FLAGS	= -Wall -Wextra -Werror -g3 -fsanitize=address
 LDFLAGS = -lreadline
 INCLUDE	= -I includes
 RM		= rm -rf
