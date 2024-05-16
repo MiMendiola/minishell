@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/05/11 21:32:32 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/05/15 17:37:24 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,21 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
-#include <signal.h>
-
 
 void	show_lst(t_token **stack);
+
+char	**tokenizer(char const *command);
+
+
 
 /*********************************************/
 /*                 BUILT-INS                 */
 /*********************************************/
 /*============= CORE_BUILTINS.C =============*/
 void    select_builtin(t_token **tokens, char *input);
+
+/*================== ECHO.C ==================*/
+void    do_echo(char *input);
 
 /*================ HISTORY.C ================*/
 void	show_history(void);
@@ -56,11 +61,5 @@ void	free_list(t_token **stack);
 t_token	*last_node(t_token *lst);
 void	add_node_back(t_token **stack, t_token *new);
 t_token	*create_node(int id, char *str);
-
-/*===========================================*/
-/*                SIGNALS.C                  */
-/*===========================================*/
-void    crtl_c(int  sign);
-void    signal_input(void);
 
 #endif

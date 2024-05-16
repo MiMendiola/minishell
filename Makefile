@@ -5,11 +5,13 @@ NAME = minishell
 SRC_DIR		=	src/
 
 SRC_FILES	=	minishell.c \
-                built-ins/core_builtins.c \
-                built-ins/history.c \
-                parsing/parsing.c \
-                parsing/tokenizer.c \
-                parsing/utils_stack.c \
+				built-ins/core_builtins.c \
+				built-ins/echo.c \
+				built-ins/history.c \
+				parsing/command_list.c \
+				parsing/parsing.c \
+				parsing/tokenizer.c \
+				parsing/utils_stack.c \
 
 SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 

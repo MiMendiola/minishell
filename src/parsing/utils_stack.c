@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:02:31 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/05/11 19:22:45 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:00:48 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_token	*create_node(int id, char *command)
 		return (NULL);
 	tokens->id = id;
 	tokens->command = command;
-	tokens->tokens = command_spliter(command, ' ');
+	tokens->tokens = command_spliter(command, '<' | '>');
 	tokens->prev = NULL;
 	tokens->next = NULL;
 	return (tokens);
