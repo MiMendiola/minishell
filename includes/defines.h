@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:18:11 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/05/06 17:58:37 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/05/11 19:59:23 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,31 @@
 # define READ_FD 0
 # define WRITE_FD 1
 
-/* ================= PIPE ENDS =================== */
-# define HSTRY_TXT "history"
-# define EXIT_TXT "exit"
+/* ================== BOOLEANS =================== */
+# define FALSE 0
+# define TRUE 1
 
-/* ================== MESSAGES =================== */
-# define FILES " 👺 minishell: no such file or directory: "
-# define COMMAND " 👺 minishell: command not found: "
-# define ARGUMENTS "Error: bad number of arguments\n"
-# define CHILD "child error"
-# define PIPE "pipe error"
+/* =================== UTILS ===================== */
+# define DQUOTES 34
+# define SQUOTES 39
+# define PIPE 124
+
 # define PATH "PATH="
 # define HERE_DOC "here_doc"
 # define TMP_FILE "/tmp/pipex_tmp"
+
+/* ================= BUILT-INS =================== */
+# define ECHO_TXT "echo"
+# define CD_TXT "cd"
+# define PWD_TXT "pwd"
+# define EXPORT_TXT "export"
+# define UNSET_TXT "unset"
+# define ENV_TXT "env"
+# define EXIT_TXT "exit"
+# define HSTRY_TXT "history"
+
+/* ================== MESSAGES =================== */
+# define NOT_FILE " 👺 minishell: no such file or directory: "
+# define COMMAND_NOT_FOUND " 👺 minishell: command not found: "
 
 #endif
