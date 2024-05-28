@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:29:16 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/05/11 18:10:25 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/05/23 19:56:43 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 typedef struct s_token	t_token;
 typedef struct s_env	t_env;
 
-struct					s_token
+struct						s_token
 {
 	int					id;
 	char				*command;

@@ -6,52 +6,82 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:59:18 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/05/11 19:59:44 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:00:33 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	add_node_tokens(t_token **stack_tokens, char **splited_tokens)
+int	write_token(char **r, char *str, char c)
 {
 	int		i;
-	t_token	*node;
-	t_token	*node_last;
-
-	i = -1;
-	while (splited_tokens[++i])
-	{
-		if (!*stack_tokens)
-			node = create_node(1, splited_tokens[i]);
-		else
-		{
-			node_last = last_node(*stack_tokens);
-			node = create_node(node_last->id + 1, splited_tokens[i]);
-		}
-		add_node_back(stack_tokens, node);
-	}
-}
-
-void	create_tokens(char *input, t_token **tokens)
-{
-	int		i;
-	char	**tokens_splited;
+	int		j;
+	int		comands;
+	char	*tmp_substr;
+	char	*tmp_trim;
 
 	i = 0;
-	if (input != NULL)
+	comands = 0;
+	while (str[i])
 	{
-		tokens_splited = command_spliter(input, PIPE);
-		add_node_tokens(tokens, tokens_splited);
-		free(tokens_splited);
+		// jump_character(str, &i, c, TRUE);
+		if (str[i] == '\0')
+			break ;
+		read_till_character(str, &j, &i, c);
+		tmp_substr = ft_substr(str, j, (i + 1) - j);
+		if (tmp_substr == NULL)
+			return (free_matrix_bool(r));
+		tmp_trim = ft_strtrim(tmp_substr, " ");
+		free(tmp_substr);
+		if (tmp_trim == NULL)
+			return (free_matrix_bool(r));
+		r[comands] = tmp_trim;
+		comands++;
 	}
-	else
-		ft_putstr_fd("Error\n", STDERR_FILENO);
+	return (1);
 }
 
-/*	TODO
-	
-	Ahora hay un problema con la separacion de tokens, porque al hacer el split de la cadena por espacios
-	me quita todos hata los que estan por la parte interior de las quotes.
-	Ahora necesito dividir la cadenas por ' o " o < o > o 
-	Necesito un token_spliter
+int	token_counter(char *str, char c)
+{
+	int		i;
+	int		commands;
+	char	quote;
+
+	i = -1;
+	commands = 0;
+	while (str[++i])
+	{
+		if (str[i] && (str[i] == DQUOTES || str[i] == SQUOTES))
+		{
+			quote = str[i++];
+			jump_character(str, &i, quote, FALSE);
+		}
+		if (!character_finder(str[i], c) && (character_finder(str[i + 1], c)
+				|| str[i + 1] == '\0'))
+			commands++;
+	}
+	return (commands);
+}
+
+char	**tokenizer(char const *command)
+{
+	int		tokens;
+	char	**list_tokens;
+
+	if (!command)
+		return (0);
+	tokens = token_counter((char *)command, ' ' | '<' | '>');
+	printf("%d\n",tokens);
+	list_tokens = ft_calloc(tokens + 1, sizeof(char *));
+	if (!list_tokens)
+		return (NULL);
+	if (!write_token(list_tokens, (char *)command, ' ' | '<' | '>'))
+		return (NULL);
+	return (list_tokens);
+}
+
+
+
+/* TODO - Uns funcion que dependiendo de < << >> > me lo divida
+		lo guarde en mi estructura guardando todos los tokens ordenados
 */

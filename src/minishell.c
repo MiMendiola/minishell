@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:15 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/05/11 21:12:56 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:02:21 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,9 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		input = readline(" 💻 $ ");
-		select_builtin(tokens, input);
 		create_tokens(input, tokens);
-		
-		// char	**pipe;
-		// int		x;
-		// pipe = pipe_spliter(input);
-		// x = -1;
-		// while (pipe[++x])
-		// 	printf("\t@ %d: [%s]\n", x, pipe[x]);
+		select_builtin(tokens, input);
+		// show_lst(tokens);
 		free(input);
 	}
 	return (0);

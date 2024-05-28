@@ -12,61 +12,71 @@
 
 #include "../../includes/minishell.h"
 
-char **command_spliter2(char *input, char delimiter)
+void	input_printer_prueba(char *input)
 {
-    char **result = malloc(10 * sizeof(char *));
-    int i = 0;
+	char	quote;
 
-    char *token = strtok(input, &delimiter);
-    while (token != NULL)
-    {
-        result[i++] = token;
-        token = strtok(NULL, &delimiter);
-    }
-    result[i] = NULL;
-    return result;
+	while (*input)
+	{
+		if (*input == DQUOTES || *input == SQUOTES)
+		{
+			quote = *input;
+			input++;
+			while (!character_finder(*input, quote))
+			{
+				printf("%c", *input);
+				input++;
+			}
+		}
+		if (*input != DQUOTES && *input != SQUOTES)
+			printf("%c", *input);
+		input++;
+	}
 }
 
-
-void do_echo(char *input)
+int	skip_endl(char **command, int *counter)
 {
-    char **command;
-    int i = 0;
-    int n_flag = 0;
+	int	j;
 
-    command = command_spliter2(input, ' ');
-    if (command[i] && ft_strcmp(command[i], "echo") == 0)
-        i++;
-    while (command[i] && ft_strncmp(command[i], "-n", 2) == 0) 
-    {
-        const char *arg = command[i] + 2;
-        int valid_n_flag = 1;
-        while (*arg) 
-        {
-            if (*arg != 'n')
-            {
-                valid_n_flag = 0;
-                break;
-            }
-            arg++;
-        }
-        if (valid_n_flag)
-        {
-            n_flag = 1;
-            i++;
-        } else
-            break;
-    }
-
-    while (command[i]) 
-    {
-        printf("%s", command[i]);
-        if (command[i + 1])
-            printf(" ");
-        i++;
-    }
-
-    if (!n_flag)
-        printf("\n");
+	j = 0;
+	if (!command || !command[*counter])
+		return (FALSE);
+	if (command[*counter][j] != '-' || command[*counter][j + 1] != 'n')
+		return (FALSE);
+	j = 2;
+	while (command[*counter][j])
+	{
+		if (command[*counter][j] != 'n')
+			return (FALSE);
+		j++;
+	}
+	(*counter)++;
+	return (TRUE);
 }
 
+void	do_echo(char *input)
+{
+	int		i;
+	int		flag;
+	char	**command;
+
+	i = 1;
+	flag = FALSE;
+	command = command_spliter(input, ' ');
+	while (command[i])
+	{
+		if (!skip_endl(command, &i))
+			break ;
+		flag = TRUE;
+	}
+	while (command[i])
+	{
+        if (*input != DQUOTES && *input != SQUOTES)
+		    printf("%s", command[i++]);
+		if (command[i])
+			printf(" ");
+	}
+	if (!flag)
+		printf("\n");
+	free_matrix(command);
+}
