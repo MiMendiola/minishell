@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/05/07 15:14:42 by anadal-g         ###   ########.fr       */
+/*   Updated: 2024/05/28 12:37:15 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ void	show_history(void);
 
 void    crtl_c(int  sign);
 void    signal_input(void);
+
+/*===========================================*/
+/*                SIGNALS.C                  */
+/*===========================================*/
+
+void do_echo(char *input);
+char **command_spliter2(char *input, char delimiter);
+
 
 
 #endif
