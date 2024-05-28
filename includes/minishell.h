@@ -62,4 +62,18 @@ t_token	*last_node(t_token *lst);
 void	add_node_back(t_token **stack, t_token *new);
 t_token	*create_node(int id, char *str);
 
+
+/*===========================================*/
+/*                SIGNALS.C                  */
+/*===========================================*/
+void    crtl_c(int  sign);
+void    signal_input(void);
+
+/*===========================================*/
+/*                SIGNALS.C                  */
+/*===========================================*/
+
+void do_echo(char *input);
+char **command_spliter2(char *input, char delimiter);
+
 #endif
