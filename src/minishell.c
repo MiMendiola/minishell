@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:15 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/05/23 12:36:15 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:02:21 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		input = readline(" 💻 $ ");
-		select_builtin(tokens, input);
 		create_tokens(input, tokens);
+		select_builtin(tokens, input);
 		// show_lst(tokens);
 		free(input);
 	}
