@@ -63,4 +63,11 @@ t_token	*create_node(int id, char *str);
 void    crtl_c(int  sign);
 void    signal_input(void);
 
+/*===========================================*/
+/*                SIGNALS.C                  */
+/*===========================================*/
+
+void do_echo(char *input);
+char **command_spliter2(char *input, char delimiter);
+
 #endif
