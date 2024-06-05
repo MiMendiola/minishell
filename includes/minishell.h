@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/05/28 12:29:19 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:45:00 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@
 void	show_lst(t_token **stack);
 
 char	**tokenizer(char const *command);
+
+
+void	lexer_state(t_token **tokens);
+
+
+
 
 /*
 **  BUILT-INS
@@ -58,22 +64,9 @@ void	create_tokens(char *input, t_token **tokens);
 
 //  UTILS_STACK.C
 void	free_list(t_token **stack);
+void	free_tokens(t_token **tokens);
 t_token	*last_node(t_token *lst);
 void	add_node_back(t_token **stack, t_token *new);
 t_token	*create_node(int id, char *str);
-
-
-/*===========================================*/
-/*                SIGNALS.C                  */
-/*===========================================*/
-void    crtl_c(int  sign);
-void    signal_input(void);
-
-/*===========================================*/
-/*                SIGNALS.C                  */
-/*===========================================*/
-
-void do_echo(char *input);
-char **command_spliter2(char *input, char delimiter);
 
 #endif

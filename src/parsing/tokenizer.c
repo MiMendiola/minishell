@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:59:18 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/05/16 14:00:33 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:35:11 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	write_token(char **r, char *str, char c)
 	comands = 0;
 	while (str[i])
 	{
-		// jump_character(str, &i, c, TRUE);
 		if (str[i] == '\0')
 			break ;
 		read_till_character(str, &j, &i, c);

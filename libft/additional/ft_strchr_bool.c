@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 20:33:25 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/04/25 14:20:38 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/06/05 16:37:09 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ int	ft_strchr_bool(const char *s, int c)
 // 	const char	*p;
 
 // 	p = "Hola Mundo";
-// 	printf("Funcion: %s", ft_strchr_bool(p, 'a'));
+// 	printf("Funcion: %d", ft_strchr_bool(p, '\"'));
 // 	return (0);
 // }

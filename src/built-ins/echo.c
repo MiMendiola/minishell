@@ -3,36 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 12:31:11 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/05/28 12:38:40 by anadal-g         ###   ########.fr       */
+/*   Created: 2024/05/15 17:20:05 by mmendiol          #+#    #+#             */
+/*   Updated: 2024/06/05 17:43:09 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	input_printer_prueba(char *input)
-{
-	char	quote;
-
-	while (*input)
-	{
-		if (*input == DQUOTES || *input == SQUOTES)
-		{
-			quote = *input;
-			input++;
-			while (!character_finder(*input, quote))
-			{
-				printf("%c", *input);
-				input++;
-			}
-		}
-		if (*input != DQUOTES && *input != SQUOTES)
-			printf("%c", *input);
-		input++;
-	}
-}
 
 int	skip_endl(char **command, int *counter)
 {
@@ -71,8 +49,8 @@ void	do_echo(char *input)
 	}
 	while (command[i])
 	{
-        if (*input != DQUOTES && *input != SQUOTES)
-		    printf("%s", command[i++]);
+		if (*input != DQUOTES && *input != SQUOTES)
+			printf("%s", command[i++]);
 		if (command[i])
 			printf(" ");
 	}
