@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:12:11 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/06/05 17:59:36 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/06/07 01:44:10 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,25 @@ void	skip_quote(char *input)
 	}
 }
 
+void remove_quotes(char *input, char quote) {
+    char *dst;
+    char *src;
+	
+    if (!input)
+		return;
 
-/*TODO - FUNCION QUE ME SALTE LAS ' O LAS " Y ME ESCRIBA TODO LO DEMAS EN ELLA*/
-
+	dst = input;
+	src = input;
+    while (*src) {
+        if (*src != quote)
+		{
+            *dst = *src;
+            dst++;
+        }
+        src++;
+    }
+    *dst = '\0';
+}
 
 int	quote_detector(const char *s)
 {
@@ -62,14 +78,28 @@ void	do_single_quotes(t_token *tokens)
 	while(tokens->tokens[i])
 	{
 		if (quote_detector(tokens->tokens[i]) == 1)
+		{
+			remove_quotes(tokens->tokens[i], SQUOTES);
 			printf("SINGLE %s\n", tokens->tokens[i]);
+		}
 		i++;
 	}
 }
 
-void	do_double_quotes()
+void	do_double_quotes(t_token *tokens)
 {
-	printf("DOUBLE \'\n");
+	int i;
+
+	i = 0;
+	while(tokens->tokens[i])
+	{
+		if (quote_detector(tokens->tokens[i]) == 1)
+		{
+			remove_quotes(tokens->tokens[i], DQUOTES);
+			printf("DOUBLE %s\n", tokens->tokens[i]);
+		}
+		i++;
+	}
 }
 
 void	lexer_state(t_token **tokens)
@@ -84,7 +114,7 @@ void	lexer_state(t_token **tokens)
 		if (quote_detector(aux->command) == 1)
 			do_single_quotes(aux);
 		else if (quote_detector(aux->command) == 2)
-			do_double_quotes();
+			do_double_quotes(aux);
 		aux = aux->next;
 	}
 }

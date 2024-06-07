@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 19:39:07 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/05/14 19:51:35 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/06/07 01:34:03 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,8 @@ void	add_node_tokens(t_token **stack_tokens, char **splited_tokens)
 
 void	create_tokens(char *input, t_token **tokens)
 {
-	int		i;
 	char	**tokens_splited;
 
-	i = 0;
 	if (input != NULL)
 	{
 		tokens_splited = command_spliter(input, PIPE);
