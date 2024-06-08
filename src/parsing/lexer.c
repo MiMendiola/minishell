@@ -6,7 +6,7 @@
 /*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:12:11 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/06/08 02:46:31 by lmntrix          ###   ########.fr       */
+/*   Updated: 2024/06/08 09:46:16 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void copy_env_name(const char *src, char *dst)
 	int i;
 
 	i = 0;
+	src++;
     while (*src && *src != ' ' && *src != DQUOTES)
 		dst[i++] = *src++;
     dst[i] = '\0';
@@ -50,6 +51,7 @@ void	var_expansor(char **input, char **src)
 				copy_env_name(*src, dst);
 				*src += ft_strlen(dst);
 				env_value = get_env_value(dst);
+				// TENGO QUE REALOCAR EL TAMAÑO DE LA STRING PARA QUE ENTRE LS EXPANSION COMPLETA (REALLOC)
 				while (*env_value)
 					*(*input)++ = *env_value++;
 			}
