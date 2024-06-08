@@ -6,7 +6,7 @@
 /*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:12:11 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/06/07 14:29:42 by lmntrix          ###   ########.fr       */
+/*   Updated: 2024/06/08 02:46:31 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,38 @@ void copy_env_name(const char *src, char *dst)
     dst[i] = '\0';
 }
 
+void	var_expansor(char **input, char **src)
+{
+	char	dst[256];
+	char	*env_value;
+	
+	while (**src && **src != DQUOTES)
+	{
+		if (**src == '$')
+		{
+			if (ft_isdigit((*src)[1]))
+			{
+				*src += 2;
+				while (**src)
+					*(*input)++ = *(*src)++;
+			}
+			else if (ft_isalpha((*src)[1]))
+			{
+				copy_env_name(*src, dst);
+				*src += ft_strlen(dst);
+				env_value = get_env_value(dst);
+				while (*env_value)
+					*(*input)++ = *env_value++;
+			}
+		}
+		*(*input)++ = *(*src)++;
+	}
+	*(*input)++ = **src;
+}
+
 void	expander(char *input)
 {
 	char	*src;
-	char	dst[256];
-	char	*env_value;
 
 	if (!input)
 		return ;
@@ -52,30 +79,7 @@ void	expander(char *input)
 		else if (*src == DQUOTES)
 		{
 			*input++ = *src++;
-			while (*src && *src != DQUOTES)
-			{
-				if (*input == '$')
-				{
-					if (ft_isdigit(src[1]))
-					{
-						src += 2;
-                        while (*src)
-                            *input++ = *src++;
-					}
-					else if (ft_isalpha(src[1]))
-					{
-						copy_env_name(src, dst);
-						src += ft_strlen(dst);
-						printf("%s\n", dst);
-						env_value = get_env_value(dst);
-						while (*env_value)
-                        	*input++ = *env_value++;
-					}
-				}
-				*input++ = *src++;
-			}
-			if (*src == DQUOTES)
-				*input++ = *src;
+			var_expansor(&input, &src);
 		}
 		else
             *input++ = *src;
