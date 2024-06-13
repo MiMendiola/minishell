@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:12:11 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/06/08 09:46:16 by lmntrix          ###   ########.fr       */
+/*   Updated: 2024/06/13 18:59:54 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ char *get_env_value(char *var)
     char *value;
 
 	value = getenv(var);
-    return (value ? value : "");
+	if (!value)
+		value = "";
+    return (value);
 }
 
 void copy_env_name(const char *src, char *dst)
@@ -26,69 +28,96 @@ void copy_env_name(const char *src, char *dst)
 
 	i = 0;
 	src++;
-    while (*src && *src != ' ' && *src != DQUOTES)
+    while (*src && *src != ' ' && *src != DQUOTES && *src != '$')
 		dst[i++] = *src++;
     dst[i] = '\0';
 }
 
-void	var_expansor(char **input, char **src)
-{
-	char	dst[256];
-	char	*env_value;
+// void	var_expansor(char **input, char **src, char *final)
+// {
+// 	char	dst[256];
+// 	char	*env_value;
 	
-	while (**src && **src != DQUOTES)
-	{
-		if (**src == '$')
-		{
-			if (ft_isdigit((*src)[1]))
-			{
-				*src += 2;
-				while (**src)
-					*(*input)++ = *(*src)++;
-			}
-			else if (ft_isalpha((*src)[1]))
-			{
-				copy_env_name(*src, dst);
-				*src += ft_strlen(dst);
-				env_value = get_env_value(dst);
-				// TENGO QUE REALOCAR EL TAMAÑO DE LA STRING PARA QUE ENTRE LS EXPANSION COMPLETA (REALLOC)
-				while (*env_value)
-					*(*input)++ = *env_value++;
-			}
-		}
-		*(*input)++ = *(*src)++;
-	}
-	*(*input)++ = **src;
-}
+// 	while (**src && **src != DQUOTES)
+// 	{
+// 		if (**src == '$')
+// 		{
+// 			if (ft_isdigit((*src)[1]))
+// 			{
+// 				*src += 2;
+// 				while (**src)
+// 					*(*input)++ = *(*src)++;
+// 			}
+// 			else if (ft_isalpha((*src)[1]))
+// 			{
+// 				copy_env_name(*src, dst);
+// 				*src += ft_strlen(dst);
+// 				env_value = get_env_value(dst);
+// 				printf("Puta: %s\n", final);
+// 				printf("Puta: %s\n", *input);
+// 				// TENGO QUE REALOCAR EL TAMAÑO DE LA STRING PARA QUE ENTRE LS EXPANSION COMPLETA (REALLOC)
+// 				while (*env_value)
+// 					*(*input)++ = *env_value++; 
+// 				*(*src) = '\0'; 
+// 			}
+// 		}
+// 		*(*input)++ = *(*src)++;
+// 	}
+// 	*(*input)++ = **src;
+// }
 
-void	expander(char *input)
+// void	expander(char *input)
+// {
+// 	char	*src;
+// 	char	*dst;
+
+// 	if (!input)
+// 		return ;
+// 	src = input;
+// 	dst = input;
+// 	while (*src)
+// 	{
+//         if (*src == SQUOTES)
+// 		{
+// 			*input++ = *src++;
+// 			while (*src && *src != SQUOTES)
+// 				*input++ = *src++;
+// 			if (*src == SQUOTES)
+// 				*input++ = *src;
+// 		}
+// 		else if (*src == DQUOTES)
+// 		{
+// 			*input++ = *src++;
+// 			var_expansor(&input, &src, dst);
+// 		}
+// 		else
+//             *input++ = *src;
+//         src++;
+//     }
+// 	*input = '\0';
+// }
+
+void	expander(char *str)
 {
-	char	*src;
+	char *env_name = ft_calloc(1, ft_strlen(str));
+	char *env_value;
+	char *found;
+	char *final_str;
 
-	if (!input)
-		return ;
-	src = input;
-	while (*src)
+	while (ft_strchr(str, '$') != NULL)
 	{
-        if (*src == SQUOTES)
-		{
-			*input++ = *src++;
-			while (*src && *src != SQUOTES)
-				*input++ = *src++;
-			if (*src == SQUOTES)
-				*input++ = *src;
-		}
-		else if (*src == DQUOTES)
-		{
-			*input++ = *src++;
-			var_expansor(&input, &src);
-		}
-		else
-            *input++ = *src;
-        src++;
-    }
-	*input = '\0';
+		found = ft_strchr(str, '$');
+		final_str = ft_substr(str, 0, (found - str));
+		copy_env_name(found, env_name);
+		env_value = get_env_value(env_name);
+		final_str = ft_strcat(final_str, env_value);
+		if (found + (ft_strlen(env_name) + 1))
+			final_str = ft_strcat(final_str, found + (ft_strlen(env_name) + 1));
+		ft_strlcpy(str, final_str, ft_strlen(final_str) + 2);
+		printf("[%s]\n", final_str);
+	}
 }
+
 
 void	remove_quotes(char *input)
 {
@@ -123,12 +152,14 @@ void lexerize(t_token **tokens)
     if (!tokens || !*tokens)
         return;
     aux = *tokens;
-    while (aux) {
+    while (aux)
+	{
         i = -1;
         while (aux->tokens[++i])
 		{
-			expander(aux->tokens[i]);
-            remove_quotes(aux->tokens[i]);
+			if (ft_strchr_bool(aux->tokens[i], '$'))
+				expander(aux->tokens[i]);
+        	remove_quotes(aux->tokens[i]);
 		}
         aux = aux->next;
     }
