@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:10:31 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/06/13 18:51:49 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/07/01 15:36:38 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 char *ft_strcat(char *dest, const char *str)
 {
-	size_t	str_len;
 	size_t	dest_len;
 	size_t	i;
 
-	str_len = ft_strlen(str);
 	dest_len = ft_strlen(dest);
 	i = 0;
 	while (str[i])

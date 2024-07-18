@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/06/07 02:26:20 by lmntrix          ###   ########.fr       */
+/*   Updated: 2024/07/02 20:08:24 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,7 @@ void	show_lst(t_token **stack);
 
 char	**tokenizer(char const *command);
 
-
 void	lexerize(t_token **tokens);
-
-
-
 
 /*
 **  BUILT-INS
@@ -50,6 +46,11 @@ void	show_history(void);
 /*
 **  PARSING
 */
+
+//  EXPANSOR.C
+char	*get_env_value(char *var);
+void	copy_env_name(char **src, char *dst);
+void	expander(t_token *aux, char *str, int i);
 
 //  PARSING.C
 void	jump_character(char *str, int *counter, char c, int flag);

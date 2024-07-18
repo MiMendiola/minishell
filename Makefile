@@ -9,8 +9,9 @@ SRC_FILES	=	minishell.c \
 				built-ins/echo.c \
 				built-ins/history.c \
 				parsing/command_list.c \
-				parsing/parsing.c \
+				parsing/expansor.c \
 				parsing/lexer.c \
+				parsing/parsing.c \
 				parsing/tokenizer.c \
 				parsing/utils_stack.c \
 
@@ -67,3 +68,12 @@ fclean:
 re: fclean all
 
 .PHONY: all clean fclean re  
+
+
+r: run
+run: all
+	@./$(NAME)
+
+v: valgrind
+valgrind: all
+	@valgrind ./$(NAME)
