@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 14:44:23 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/07/18 17:43:40 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:56:44 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ void	copy_env_name(char **src, char *dst)
 		(*src)++;
 		return;
 	}
-	else if (!ft_isalpha(**src))
+	else if (!ft_isalpha(**src) && **src != DQUOTES && **src != SQUOTES)
 	{
 		(*src)++;
+		dst = ft_strcat(dst, *src);
 		return;
 	}
 	while (**src && **src != ' ' && **src != DQUOTES && **src != SQUOTES
@@ -64,7 +65,6 @@ void expand_variables(char **tmp_str, char **str, char **found, char *env_name)
 	*tmp_str = ft_realloc(*tmp_str, ft_strlen(*tmp_str), ft_strlen(*tmp_str)
 			+ ft_strlen(env_value) + 1);
 	*tmp_str = ft_strcat(*tmp_str, env_value);
-	// *found += ft_strlen(env_name) + 1;
 	*str = *found;
 	*found = ft_strchr(*found, '$');
 	if (*found && ft_strcmp(*str, *found))
@@ -76,25 +76,86 @@ void expand_variables(char **tmp_str, char **str, char **found, char *env_name)
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+char	*found_dollar_not_squotes(char *str)
+{
+	int single_quotes;
+    int double_quotes;
+
+	single_quotes = 0;
+	double_quotes = 0;
+    while (*str)
+    {
+        if (*str == '"' && !single_quotes)
+            double_quotes = !double_quotes;
+        else if (*str == '\'' && !double_quotes)
+            single_quotes = !single_quotes;
+        else if (*str == '$' && (!single_quotes || double_quotes))
+            return (str);
+        str++;
+    }
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void	expander(t_token *aux, char *str, int i)
 {
 	char	*found;
 	char	*env_name;
 	char	*tmp_str;
 
-	env_name = ft_calloc(1, ft_strlen(str));
+	env_name = ft_calloc(1, ft_strlen(str) + 1);
 	tmp_str = ft_calloc(1, ft_strlen(str) + 1);
-	found = ft_strchr(str, '$');
+	
+	/* Aqui utilizaba ft_strchr(str, $), ahora uso found para encontrar de primeras el $ que no esta en las comillas simples */
+	found = found_dollar_not_squotes(str);
+
+	
 	ft_strlcat(tmp_str, str, (found - str) + 1);
 	while (found != NULL)
 	{
-		expand_variables(&tmp_str, &str, &found, env_name);
+		if (dollar_not_between_squotes(found))
+			expand_variables(&tmp_str, &str, &found, env_name);
 	}
 	tmp_str = ft_realloc(tmp_str, ft_strlen(tmp_str), (ft_strlen(tmp_str)
-				+ ft_strlen(str)));
+				+ ft_strlen(str) + 1));
+	if (!tmp_str)
+        return (free(env_name));
 	tmp_str = ft_strcat(tmp_str, str);
 	aux->tokens[i] = ft_realloc(aux->tokens[i], ft_strlen(aux->tokens[i]),
-			ft_strlen(tmp_str));
+			ft_strlen(tmp_str) + 1);
 	ft_strcpy(aux->tokens[i], tmp_str);
 	(free(env_name), free(tmp_str));
 }
+

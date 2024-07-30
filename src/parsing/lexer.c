@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:12:11 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/07/02 13:47:38 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:28:36 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,27 @@ void	remove_quotes(char *input)
 	*input = '\0';
 }
 
-void lexerize(t_token **tokens)
+int	dollar_not_between_squotes(char *str)
+{
+	int single_quotes;
+    int double_quotes;
+
+	single_quotes = 0;
+	double_quotes = 0;
+    while (*str)
+    {
+        if (*str == '"' && !single_quotes)
+            double_quotes = !double_quotes;
+        else if (*str == '\'' && !double_quotes)
+            single_quotes = !single_quotes;
+        else if (*str == '$' && (!single_quotes || double_quotes))
+            return 1;
+        str++;
+    }
+    return 0;
+}
+
+void	lexerize(t_token **tokens)
 {
     int i;
     t_token *aux;
@@ -50,16 +70,13 @@ void lexerize(t_token **tokens)
         i = -1;
         while (aux->tokens[++i])
 		{
-			if (ft_strchr_bool(aux->tokens[i], '$'))
+			if (ft_strchr_bool(aux->tokens[i], '$') && dollar_not_between_squotes(aux->tokens[i]))
 				expander(aux, aux->tokens[i], i);
         	remove_quotes(aux->tokens[i]);
 		}
         aux = aux->next;
     }
 }
-
-
-
 
 
 
@@ -102,58 +119,4 @@ int	quote_detector(const char *s)
 		i++;
 	}
 	return (0);
-}
-
-void	do_single_quotes(t_token *tokens)
-{
-	int	i;
-
-	i = 0;
-	while (tokens->tokens[i])
-	{
-		if (quote_detector(tokens->tokens[i]) == 1)
-		{
-			remove_quotes(tokens->tokens[i]);
-			printf("SINGLE %s\n", tokens->tokens[i]);
-		}
-		i++;
-	}
-}
-
-void	do_double_quotes(t_token *tokens)
-{
-	int	i;
-
-	i = 0;
-	while (tokens->tokens[i])
-	{
-		if (quote_detector(tokens->tokens[i]) == 2)
-		{
-			remove_quotes(tokens->tokens[i]);
-			printf("DOUBLE %s\n", tokens->tokens[i]);
-		}
-		i++;
-	}
-}
-
-void	lexerize(t_token **tokens)
-{
-	int i;
-	t_token *aux;
-
-	aux = *tokens;
-	if (!tokens || !*tokens)
-		return ;
-	while (aux)
-	{
-		i = -1;
-		while (aux->tokens[++i])
-		{
-			if (quote_detector(aux->tokens[i]) == 1)
-				do_single_quotes(aux);
-			else if (quote_detector(aux->tokens[i]) == 2)
-				do_double_quotes(aux);
-		}
-		aux = aux->next;
-	}
-}*/
+} */
