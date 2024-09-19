@@ -23,7 +23,7 @@ OBJ_FILES 	= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 #COMPILER
 CC		= cc
-FLAGS	= -Wall -Wextra -Werror -g3 #-fsanitize=address
+FLAGS	= -Wall -Wextra -Werror -g3 -fsanitize=address
 LDFLAGS = -lreadline
 INCLUDE	= -I includes
 RM		= rm -rf

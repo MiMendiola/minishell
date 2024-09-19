@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:12:11 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/07/30 17:28:36 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/09/19 20:52:32 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,6 @@ void	remove_quotes(char *input)
 	*input = '\0';
 }
 
-int	dollar_not_between_squotes(char *str)
-{
-	int single_quotes;
-    int double_quotes;
-
-	single_quotes = 0;
-	double_quotes = 0;
-    while (*str)
-    {
-        if (*str == '"' && !single_quotes)
-            double_quotes = !double_quotes;
-        else if (*str == '\'' && !double_quotes)
-            single_quotes = !single_quotes;
-        else if (*str == '$' && (!single_quotes || double_quotes))
-            return 1;
-        str++;
-    }
-    return 0;
-}
-
 void	lexerize(t_token **tokens)
 {
     int i;
@@ -70,53 +50,10 @@ void	lexerize(t_token **tokens)
         i = -1;
         while (aux->tokens[++i])
 		{
-			if (ft_strchr_bool(aux->tokens[i], '$') && dollar_not_between_squotes(aux->tokens[i]))
+			if (ft_strchr_bool(aux->tokens[i], '$'))
 				expander(aux, aux->tokens[i], i);
-        	remove_quotes(aux->tokens[i]);
+        	//remove_quotes(aux->tokens[i]);
 		}
         aux = aux->next;
     }
 }
-
-
-
-
-/*
-
-void	skip_quote(char *input)
-{
-	char	quote;
-
-	while (*input)
-	{
-		if (*input == DQUOTES || *input == SQUOTES)
-		{
-			quote = *input;
-			input++;
-			while (!character_finder(*input, quote))
-			{
-				printf("%c", *input);
-				input++;
-			}
-		}
-		else
-			printf("%c", *input);
-		input++;
-	}
-}
-
-int	quote_detector(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == SQUOTES)
-			return (1);
-		else if (s[i] == DQUOTES)
-			return (2);
-		i++;
-	}
-	return (0);
-} */

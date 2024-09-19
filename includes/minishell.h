@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/07/30 16:43:58 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:37:40 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,6 @@ void	read_till_character(char *str, int *start, int *counter, char c);
 int		write_command(char **r, char *str, char c);
 int		command_counter(char *str, char c);
 char	**command_spliter(char const *s, char c);
-
-
-int	dollar_not_between_squotes(char *str);
 
 //  TOKENIZER.C
 void	add_node_tokens(t_token **stack, char **splited_tokens);
