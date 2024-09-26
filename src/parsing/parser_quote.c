@@ -12,142 +12,145 @@
 
 #include "../../includes/minishell.h"
 
-int	quote_detector(const char *s)
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define DQUOTES '"'
+#define SQUOTES '\''
+
+
+void	jump_character(char *str, int *i, char quote)
 {
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == SQUOTES || s[i] == DQUOTES)
-			return (1);
-		i++;
-	}
-	return (0);
-} 
-
-void	skip_quote(char *input)
-{
-	char	quote;
-
-	while (*input)
-	{
-		if (*input == DQUOTES || *input == SQUOTES)
-		{
-			quote = *input;
-			input++;
-			while (!character_finder(*input, quote))
-			{
-				printf("%c", *input);
-				input++;
-			}
-		}
-		else
-			printf("%c", *input);
-		input++;
-	}
+	while (str[*i] && str[*i] != quote)
+		(*i)++;
 }
 
-
-
-
-
-
-
-
-void	jump_character(char *input, int *counter, char c, int flag)
+int	character_finder(char c)
 {
-	if (flag)
-		while (input[*counter] && character_finder(input[*counter], c))
-			(*counter)++;
-	else
-		while (input[*counter] && !character_finder(input[*counter], c))
-			(*counter)++;
+	return (c == DQUOTES || c == SQUOTES);
+}
+
+void    conditional_quote_counter(char *str, int *i, int *commands)
+{
+	char	quote;
+    int		in_quotes;
+
+	quote = 0;
+    in_quotes = 0;
+    while (str[++(*i)])
+    {
+        if (str[*i] == SQUOTES || str[*i] == DQUOTES)
+        {
+            quote = str[(*i)++];
+            jump_character(str, i, quote);
+            (*commands)++;
+            in_quotes = 0;
+        }
+        else if (!character_finder(str[*i]))
+        {
+            if (!in_quotes)
+            {
+                (*commands)++;
+                in_quotes = 1;
+            }
+        }
+        else
+            in_quotes = 0;
+    }
 }
 
 int	quote_command_counter(char *str)
 {
 	int		i;
 	int		commands;
-	char	quote;
 
 	i = -1;
 	commands = 0;
-	while (str[++i])
-	{
-		if (str[i] && (str[i] == DQUOTES || str[i] == SQUOTES))
-		{
-			quote = str[i++];
-			jump_character(str, &i, quote, FALSE);
-		}
-		if (!character_finder(str[i], c) && (character_finder(str[i + 1], c)
-				|| str[i + 1] == '\0'))
-			commands++;
-	}
+	conditional_quote_counter(str, &i, &commands);
+
+
+
+
+
 	return (commands);
 }
 
-void	read_till_character(char *input, int *start, int *counter, char c)
+char *ft_strndup(const char *s, size_t n)
 {
-	char	quote;
-
-	*start = *counter;
-	while (input[*counter])
-	{
-		if (input[*counter] == DQUOTES || input[*counter] == SQUOTES)
-		{
-			quote = input[(*counter)++];
-			jump_character(input, counter, quote, FALSE);
-		}
-		else if (character_finder(input[*counter], c))
-			break ;
-		(*counter)++;
-	}
-}
-
-int	write_quote_command(char **r, char *str, char c)
-{
+    char	*dst;
 	int		i;
-	int		j;
-	int		comands;
-	char	*tmp_substr;
-	char	*tmp_trim;
+    int     len;
 
 	i = 0;
-	comands = 0;
-	while (str[i])
+    len = 0;
+    while (len < (int)n && s[len])
+    {
+        len++;
+    }
+
+	dst = ft_calloc(len + 1, sizeof(char));
+	if (!dst)
+		return (NULL);
+	while (s[i] && len > i)
 	{
-		jump_character(str, &i, c, TRUE);
-		if (str[i] == '\0')
-			break ;
-		read_till_character(str, &j, &i, c);
-		tmp_substr = ft_substr(str, j, i - j);
-		if (tmp_substr == NULL)
-			return (free_matrix_bool(r));
-		tmp_trim = ft_strtrim(tmp_substr, " ");
-		free(tmp_substr);
-		if (tmp_trim == NULL)
-			return (free_matrix_bool(r));
-		r[comands] = tmp_trim;
-		comands++;
+		dst[i] = s[i];
+		i++;
 	}
-	return (1);
+	dst[i] = '\0';
+	return (dst);
 }
 
-char	**quote_spliter(char const *s, char c)
+
+char **quote_command_split(char *str)
 {
-	int		commands;
-	char	**list_commands;
-
-	if (!s)
-		return (0);
-	commands = quote_command_counter((char *)s);
-	list_commands = ft_calloc(commands + 1, sizeof(char *));
-	if (!list_commands)
-		return (NULL);
-	if (!write_quote_command(list_commands, (char *)s, c))
-		return (NULL);
-	return (list_commands);
+    int i = 0;
+    int j = 0;
+    int start = 0;
+    int num_tokens = quote_command_counter(str);
+    char **tokens = ft_calloc((num_tokens + 1), sizeof(char *));
+    char quote = 0;
+    
+    while (str[i])
+    {
+        while (character_finder(str[i]))
+            i++;
+        start = i;
+        if (str[i] == SQUOTES || str[i] == DQUOTES)
+        {
+            quote = str[i++];
+            while (str[i] && str[i] != quote) i++;
+            tokens[j] = ft_strndup(&str[start], i - start + 1);
+        }
+        else
+        {
+            while (str[i] && !character_finder(str[i]) && str[i] != SQUOTES && str[i] != DQUOTES)
+                i++;
+            tokens[j] = ft_strndup(&str[start], i - start);
+        }
+        j++;
+        i++;
+    }
+    tokens[j] = NULL;
+    return tokens;
 }
 
+int main() {
+    char str[] = "\"sfd     hello\"     'rwer example'    \"hola\"      asdasd dfsfdsf     \"tardes buenas\"   'asd'    ddfgdf     g";
+    char **tokens = quote_command_split(str);
 
+    printf("Token %d: %s\n", 1, tokens[0]);
+    printf("Token %d: %s\n", 2, tokens[1]);
+    printf("Token %d: %s\n", 3, tokens[2]);
+    printf("Token %d: %s\n", 4, tokens[3]);
+    printf("Token %d: %s\n", 5, tokens[4]);
+    printf("Token %d: %s\n", 6, tokens[5]);
+    printf("Token %d: %s\n", 7, tokens[6]);
+    printf("Token %d: %s\n", 8, tokens[7]);
+    printf("Token %d: %s\n", 9, tokens[8]);
+    printf("Token %d: %s\n", 9, tokens[9]);
+    printf("Token %d: %s\n", 9, tokens[10]);
+    
+    free(tokens);
+    return 0;
+}
