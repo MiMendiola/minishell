@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/08/07 18:37:40 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/09/28 14:05:18 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <unistd.h>
 
 void	show_lst(t_token **stack);
+void	show_error(char *str);
 
 char	**tokenizer(char const *command);
 
@@ -43,14 +44,23 @@ void	do_echo(char *input);
 //  HISTORY.C
 void	show_history(void);
 
-/*
+/***************
 **  PARSING
-*/
+****************/
+
+//  QUOTE_HANDLER.C
+void	quotes_check_in_token(char *token, int *in_quotes);
+int		quotes_checker(t_token *token);
+int		quotes_handler(t_token **token, char *input);
+void	quotes_remover(char *input);
+char	*quote_joiner(char **tokens);
+
+//  QUOTE_PARSER.C
+int		quote_equal(char c);
+char	**quote_command_split(char *str);
 
 //  EXPANSOR.C
-char	*get_env_value(char *var);
-void	copy_env_name(char **src, char *dst);
-void	expander(t_token *aux, char *str, int i);
+void	expander(char **tokens);
 
 //  PARSING.C
 void	jump_character(char *str, int *counter, char c, int flag);
@@ -58,6 +68,9 @@ void	read_till_character(char *str, int *start, int *counter, char c);
 int		write_command(char **r, char *str, char c);
 int		command_counter(char *str, char c);
 char	**command_spliter(char const *s, char c);
+
+//  QUOTE PARSER.C
+char	**quote_command_split(char *str);
 
 //  TOKENIZER.C
 void	add_node_tokens(t_token **stack, char **splited_tokens);

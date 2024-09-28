@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:18:11 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/05/29 18:11:27 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/09/28 13:11:48 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,11 @@
 //  MESSAGES
 # define NOT_FILE " 👺 minishell: no such file or directory: "
 # define COMMAND_NOT_FOUND " 👺 minishell: command not found: "
+# define QUOTES_NOT_VALID " 👺 minishell: invalid quotes\n"
+
+#define RED "\x1b[31m"
+#define GREEN "\x1b[32m"
+#define CLEAR "\x1b[0m"
+
 
 #endif

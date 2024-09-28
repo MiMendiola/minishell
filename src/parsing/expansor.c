@@ -3,183 +3,101 @@
 /*                                                        :::      ::::::::   */
 /*   expansor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 14:44:23 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/09/19 20:33:39 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/09/28 14:09:25 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*get_env_value(char *var)
+char	*get_variable_name(char **str)
 {
-	char	*value;
+	char	*var_start;
+	size_t	len;
 
-	value = getenv(var);
-	if (!value)
-		value = "";
-	return (value);
+	var_start = *str;
+	len = 0;
+	while (**str && (isalnum(**str) || **str == '_'))
+		(*str)++;
+	len = *str - var_start;
+	return (ft_strndup(var_start, len));
 }
 
-void	copy_env_name(char **src, char *dst)
+void	append_expanded(char **result, size_t *result_len, char *var_name)
 {
-	int	i;
+	char	*env_value;
 
-	i = 0;
-	(*src)++;
-	if (**src == '?')
+	env_value = getenv(var_name);
+	if (env_value)
 	{
-		(*src)++;
-		return;
-	}
-	else if (!ft_isalpha(**src) && **src != DQUOTES && **src != SQUOTES)
-	{
-		(*src)++;
-		dst = ft_strcat(dst, *src);
-		return;
-	}
-	while (**src && **src != ' ' && **src != DQUOTES && **src != SQUOTES
-		&& **src != '$')
-		dst[i++] = *(*src)++;
-	dst[i] = '\0';
-}
-
-char	*ft_strcpy(char *dest, const char *src)
-{
-	char	*orig;
-
-	orig = dest;
-	while
-		((*dest++ = *src++));
-	return (orig);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-char	*found_dollar_not_squotes(char *str)
-{
-	int single_quotes;
-    int double_quotes;
-
-	single_quotes = 0;
-	double_quotes = 0;
-    while (*str)
-    {
-        if (*str == '"' && !single_quotes)
-            double_quotes = !double_quotes;
-        else if (*str == '\'' && !double_quotes)
-            single_quotes = !single_quotes;
-        else if (*str == '$' && (!single_quotes || double_quotes))
-            return (str);
-        str++;
-    }
-    return 0;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-void expand_variables(char **tmp_str, char **str, char **found, char *env_name)
-{
-    char	*env_value;
-	
-	copy_env_name(found, env_name);
-	env_value = get_env_value(env_name);
-	*tmp_str = ft_realloc(*tmp_str, ft_strlen(*tmp_str), ft_strlen(*tmp_str)
-			+ ft_strlen(env_value) + 1);
-	*tmp_str = ft_strcat(*tmp_str, env_value);
-	*str = *found;
-
-
-
-
-
-
-	//*found = found_dollar_not_squotes(*str);
-
-
-
-	//TODO - found tiene que ser el $ encontrado en l division de cadenas del comando dividido
-
-
-		
-		
-	if (*found && ft_strcmp(*str, *found))
-	{
-		*tmp_str = ft_realloc(*tmp_str, ft_strlen(*tmp_str),
-				(ft_strlen(*tmp_str) + (*found - *str)));
-		ft_strlcat(*tmp_str, *str, (ft_strlen(*tmp_str) + (*found - *str) + 1));
+		*result_len += ft_strlen(env_value);
+		*result = ft_realloc(*result, *result_len, *result_len + 1);
+		if (*result)
+			ft_strcat(*result, env_value);
 	}
 }
 
-
-
-void	expander(t_token *aux, char *str, int i)
+void	append_other_characters(char **result, size_t *result_len, char c)
 {
-	char	*found;
-	char	*env_name;
-	char	*tmp_str;
+	size_t	len;
 
-	env_name = ft_calloc(1, ft_strlen(str) + 1);
-	tmp_str = ft_calloc(1, ft_strlen(str) + 1);
-	
-
-
-
-	
-	found = found_dollar_not_squotes(str);
-	ft_strlcat(tmp_str, str, (found - str) + 1);
-
-
-
-
-
-
-
-
-
-	
-	while (found != NULL)
+	(*result_len)++;
+	*result = ft_realloc(*result, *result_len, *result_len + 1);
+	if (*result)
 	{
-			expand_variables(&tmp_str, &str, &found, env_name);
+		len = ft_strlen(*result);
+		(*result)[len] = c;
+		(*result)[len + 1] = '\0';
 	}
-	tmp_str = ft_realloc(tmp_str, ft_strlen(tmp_str), (ft_strlen(tmp_str)
-				+ ft_strlen(str) + 1));
-	if (!tmp_str)
-        return (free(env_name));
-	tmp_str = ft_strcat(tmp_str, str);
-	aux->tokens[i] = ft_realloc(aux->tokens[i], ft_strlen(aux->tokens[i]),
-			ft_strlen(tmp_str) + 1);
-	ft_strcpy(aux->tokens[i], tmp_str);
-	(free(env_name), free(tmp_str));
 }
 
+char	*expand_variable(char *str)
+{
+	char	*result;
+	size_t	result_len;
+	char	*var_name;
+
+	result_len = 0;
+	result = malloc(1);
+	if (!result)
+		return (NULL);
+	result[0] = '\0';
+	while (*str)
+	{
+		if (*str == '$')
+		{
+			str++;
+			var_name = get_variable_name(&str);
+			if (var_name)
+			{
+				append_expanded(&result, &result_len, var_name);
+				free(var_name);
+			}
+		}
+		else
+			append_other_characters(&result, &result_len, *str++);
+	}
+	return (result);
+}
+
+void	expander(char **tokens)
+{
+	int		i;
+	char	*expanded;
+
+	i = -1;
+	while (tokens[++i])
+	{
+		if (tokens[i][0] != '\'')
+		{
+			expanded = expand_variable(tokens[i]);
+			if (expanded)
+			{
+				free(tokens[i]);
+				tokens[i] = expanded;
+			}
+		}
+	}
+}

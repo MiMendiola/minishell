@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:05:02 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/05/06 17:25:48 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/09/28 14:12:32 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ void	show_history(void)
 	{
 		i = -1;
 		while (history[++i])
-			printf("%*d  %s\n", width, i + history_base, history[i]->line);
+			ft_printf("%*d  %s\n", width, i + history_base, history[i]->line);
 	}
 }

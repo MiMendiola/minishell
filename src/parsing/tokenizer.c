@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:59:18 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/05/28 13:35:11 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/09/28 14:10:17 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ char	**tokenizer(char const *command)
 	if (!command)
 		return (0);
 	tokens = token_counter((char *)command, ' ' | '<' | '>');
-	printf("%d\n",tokens);
 	list_tokens = ft_calloc(tokens + 1, sizeof(char *));
 	if (!list_tokens)
 		return (NULL);
@@ -78,8 +77,6 @@ char	**tokenizer(char const *command)
 		return (NULL);
 	return (list_tokens);
 }
-
-
 
 /* TODO - Uns funcion que dependiendo de < << >> > me lo divida
 		lo guarde en mi estructura guardando todos los tokens ordenados

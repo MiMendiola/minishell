@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 17:20:05 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/06/05 17:43:09 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/09/28 14:12:44 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ void	do_echo(char *input)
 	while (command[i])
 	{
 		if (*input != DQUOTES && *input != SQUOTES)
-			printf("%s", command[i++]);
+			ft_printf("%s", command[i++]);
 		if (command[i])
-			printf(" ");
+			ft_printf(" ");
 	}
 	if (!flag)
-		printf("\n");
+		ft_printf("\n");
 	free_matrix(command);
 }

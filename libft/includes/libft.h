@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 19:43:33 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/04/22 12:14:21 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/09/28 10:50:08 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 
 # include <fcntl.h>
 # include <stdarg.h>
+# include <stddef.h>
+# include <stdint.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# include <stdint.h>
-
-# include "./gnl.h"
-# include "./ft_printf.h"
 # include "./additional.h"
+# include "./ft_printf.h"
+# include "./gnl.h"
 
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
@@ -49,6 +49,15 @@ char				*ft_strnstr(const char *str, const char *to_find,
 int					ft_atoi(const char *str);
 void				*ft_calloc(size_t count, size_t size);
 char				*ft_strdup(const char *s);
+
+// EXTRAS
+long				ft_atol(const char *str);
+int					ft_strcmp(const char *s1, const char *s2);
+char				*ft_strcat(char *dest, const char *str);
+void				*ft_realloc(void *ptr, size_t original_size,
+						size_t new_size);
+char				*ft_strndup(const char *s, size_t n);
+char				*ft_strcpy(char *dest, const char *src);
 
 // ADDITIONALS FUNCTIONS
 char				*ft_substr(char const *s, unsigned int start, size_t len);

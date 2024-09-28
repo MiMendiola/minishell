@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:15 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/06/17 17:55:02 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/09/28 14:08:16 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	show_lst(t_token **stack)
 		printf("NODE		->	%p\n", aux);
 		if (aux->prev)
 			printf("PREV COMMAND[%d]	->	%s\n", aux->prev->id,
-						aux->prev->command);
+				aux->prev->command);
 		printf("NODE COMMAND[%d]	->	%s\n", aux->id, aux->command);
 		if (aux->tokens)
 		{
@@ -53,10 +53,9 @@ int	main(int ac, char **av, char **env)
 		input = readline(" 💻 $ ");
 		free_tokens(tokens);
 		create_tokens(input, tokens);
-		
-
+		if (!quotes_handler(tokens, input))
+			continue ;
 		lexerize(tokens);
-
 		select_builtin(tokens, input);
 		show_lst(tokens);
 		free(input);

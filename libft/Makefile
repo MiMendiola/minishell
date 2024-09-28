@@ -11,7 +11,8 @@ SRCS = $(addprefix ./lib/, ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c f
 		ft_strrchr.c ft_strncmp.c ft_memchr.c ft_memcmp.c ft_strnstr.c ft_atoi.c \
 		ft_calloc.c ft_strdup.c ft_substr.c ft_strjoin.c ft_strtrim.c \
 		ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c ft_putchar_fd.c \
-		ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c)
+		ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
+		ft_atol.c ft_strcmp.c ft_strcat.c ft_realloc.c ft_strndup.c ft_strcpy.c)
 		
 
 SRCS_GNL = $(addprefix ./gnl/, get_next_line.c get_next_line_utils.c)
@@ -22,8 +23,8 @@ SRCS_BONUS = $(addprefix ./bonus/, ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_
 				ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c \
 				ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c)
 
-SRCS_ADDITIONAL = $(addprefix ./additional/, ft_atol.c free_matrix.c ft_strcmp.c ft_strchr_bool.c \
-					nodes.c free_matrix_bool.c character_finder.c ft_strcat.c ft_realloc.c)
+SRCS_ADDITIONAL = $(addprefix ./additional/, free_matrix.c ft_strchr_bool.c \
+					nodes.c free_matrix_bool.c character_finder.c )
 
 OBJS = $(SRCS:.c=.o)
 OBJS_GNL = $(SRCS_GNL:.c=.o)

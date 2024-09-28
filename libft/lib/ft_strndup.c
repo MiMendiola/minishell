@@ -1,24 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   additional.h                                       :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 17:42:16 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/09/28 10:15:42 by lmntrix          ###   ########.fr       */
+/*   Created: 2024/03/12 10:34:44 by mmendiol          #+#    #+#             */
+/*   Updated: 2024/09/27 03:18:49 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ADDITIONAL_H
-# define ADDITIONAL_H
+#include "../includes/libft.h"
 
-# include "./libft.h"
+char	*ft_strndup(const char *s, size_t n)
+{
+	char	*dst;
+	int		i;
+	int		len;
 
-// FUNCTIONS ADDED LATER
-int		free_matrix_bool(char **str);
-void	free_matrix(char **matrix);
-int		ft_strchr_bool(const char *s, int c);
-int		character_finder(char str, char c);
-
-#endif
+	i = 0;
+	len = 0;
+	while (len < (int)n && s[len])
+	{
+		len++;
+	}
+	dst = ft_calloc(len + 1, sizeof(char));
+	if (!dst)
+		return (NULL);
+	while (s[i] && len > i)
+	{
+		dst[i] = s[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
+}
