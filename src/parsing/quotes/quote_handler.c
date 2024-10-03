@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 20:11:05 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/09/28 14:09:33 by lmntrix          ###   ########.fr       */
+/*   Updated: 2024/10/02 20:46:27 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	quotes_handler(t_token **token, char *input)
 		if (!quotes_checker(aux))
 		{
 			add_history(input);
-			show_error(QUOTES_NOT_VALID);
+			show_error(QUOTES_NOT_VALID, aux->command);
 			free(input);
 			return (0);
 		}
@@ -109,7 +109,7 @@ char	*quote_joiner(char **tokens)
 		final_len += ft_strlen(tokens[i]);
 	final_str = ft_calloc(final_len + 1, sizeof(char));
 	if (!final_str)
-		return (NULL);
+		return (free(final_str), NULL);
 	final_str[0] = '\0';
 	i = -1;
 	while (tokens[++i])

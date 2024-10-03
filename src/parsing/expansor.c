@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 14:44:23 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/09/28 14:09:25 by lmntrix          ###   ########.fr       */
+/*   Updated: 2024/10/03 17:39:45 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,18 @@ char	*get_variable_name(char **str)
 void	append_expanded(char **result, size_t *result_len, char *var_name)
 {
 	char	*env_value;
+	size_t	env_len;
 
 	env_value = getenv(var_name);
+	env_len = ft_strlen(env_value);
 	if (env_value)
 	{
-		*result_len += ft_strlen(env_value);
-		*result = ft_realloc(*result, *result_len, *result_len + 1);
+		*result = ft_realloc(*result, *result_len, *result_len + env_len + 1);
 		if (*result)
+		{
 			ft_strcat(*result, env_value);
+			*result_len += env_len;
+		}
 	}
 }
 
@@ -43,13 +47,13 @@ void	append_other_characters(char **result, size_t *result_len, char c)
 {
 	size_t	len;
 
-	(*result_len)++;
-	*result = ft_realloc(*result, *result_len, *result_len + 1);
+	*result = ft_realloc(*result, *result_len, *result_len + 2);
 	if (*result)
 	{
 		len = ft_strlen(*result);
 		(*result)[len] = c;
 		(*result)[len + 1] = '\0';
+		(*result_len)++;
 	}
 }
 
@@ -60,9 +64,9 @@ char	*expand_variable(char *str)
 	char	*var_name;
 
 	result_len = 0;
-	result = malloc(1);
+	result = ft_calloc(1, sizeof(char));
 	if (!result)
-		return (NULL);
+		return (free(result), NULL);
 	result[0] = '\0';
 	while (*str)
 	{

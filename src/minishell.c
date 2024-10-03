@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:15 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/09/28 14:08:16 by lmntrix          ###   ########.fr       */
+/*   Updated: 2024/09/30 08:59:07 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	show_error(char *str, char *cmd_file)
+{
+	char	*msg;
+
+	msg = ft_strjoin(str, cmd_file);
+	ft_putstr_fd(msg, 2);
+	ft_putstr_fd("\n", 2);
+}
 
 void	show_lst(t_token **stack)
 {

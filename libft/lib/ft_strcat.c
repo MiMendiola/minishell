@@ -6,13 +6,13 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:10:31 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/07/01 15:36:38 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:39:38 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-char *ft_strcat(char *dest, const char *str)
+char	*ft_strcat(char *dest, const char *str)
 {
 	size_t	dest_len;
 	size_t	i;
