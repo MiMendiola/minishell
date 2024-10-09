@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:08:26 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/05/11 19:50:13 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/04 13:37:07 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,10 @@ char	**command_spliter(char const *s, char c)
 	if (!list_commands)
 		return (NULL);
 	if (!write_command(list_commands, (char *)s, c))
+	{
+		free(list_commands);
 		return (NULL);
+	}
+	list_commands[commands] = NULL;
 	return (list_commands);
 }

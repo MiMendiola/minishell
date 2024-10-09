@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   core_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 21:01:25 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/05/27 12:56:05 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/09/30 13:22:54 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ void	select_builtin(t_token **tokens, char *input)
 		do_echo(input);
 	else if (ft_strcmp(input, HSTRY_TXT) == 0)
 		show_history();
-	if (ft_strcmp(input, "") != 0)
+	else if (ft_strcmp(input, "") != 0)
 		add_history(input);
+	else if (ft_strcmp(input, PWD_TXT) == 0)
+		ft_pwd();
+	else if (ft_strcmp(input, ENV_TXT) == 0)
+		ft_env(&input, NULL);
+	// else if (ft_strcmp(input, CD_TXT) == 0)
+	// 	ft_cd(*tokens, NULL);
 }

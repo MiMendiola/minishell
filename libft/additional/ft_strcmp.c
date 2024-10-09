@@ -12,6 +12,25 @@
 
 #include "../includes/libft.h"
 
+
+// int ft_strcmp(const char *s1, const char *s2)
+// {
+//     if (!s1 || !s2)
+//     {
+//         ft_putstr_fd("Error: Puntero NULL pasado a ft_strcmp.\n", STDERR_FILENO);
+//         return -1;  // Devuelve un valor que indique error
+//     }
+
+//     while (*s1 && (*s1 == *s2))
+//     {
+//         s1++;
+//         s2++;
+//     }
+
+//     return (unsigned char)(*s1) - (unsigned char)(*s2);
+// }
+
+
 int	ft_strcmp(const char *s1, const char *s2)
 {
 	size_t	i;

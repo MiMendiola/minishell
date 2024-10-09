@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:15 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/05/27 16:02:21 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:43:42 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,49 @@ void	show_lst(t_token **stack)
 	}
 }
 
+
 int	main(int ac, char **av, char **env)
 {
 	t_token	**tokens;
+	t_env	*env_list;
 	char	*input;
 
+	env_list = NULL;
 	tokens = ft_calloc(1, sizeof(t_token *));
 	if (ac == 0 && av == NULL && env == NULL)
 		printf("Hello");
-	while (1)
+	if (!tokens)
 	{
-		input = readline(" 💻 $ ");
-		create_tokens(input, tokens);
-		select_builtin(tokens, input);
-		// show_lst(tokens);
-		free(input);
+		ft_putstr_fd("-----------------------.\n", STDERR_FILENO);
+		return (EXIT_FAILURE);
 	}
+	ft_init_env(&env_list, env);
+	while (1)
+	{	
+		input = readline(" 💻 $ ");
+		if (!input) 
+		{
+    	    ft_putstr_fd("Salida del shell\n", STDERR_FILENO);
+    	    break ; 
+        }
+		if (*input)
+		{
+			set_shell_lvl(&env_list);
+			parse_command(input, tokens, env_list);
+			if (!tokens || !*tokens)
+			{                
+				printf("Tokens no fueron inicializados o procesados en parse_command.\n");
+				break ;
+			}
+			select_builtin(tokens, input);
+			//show_lst(tokens);
+		}
+		free_tokens(tokens);
+		free(input);
+        input = NULL;
+	}
+	free_tokens(tokens);
+	free_env_list(env_list);
+	free(input);
 	return (0);
 }
