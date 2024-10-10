@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   core_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 21:01:25 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/09/28 14:12:53 by lmntrix          ###   ########.fr       */
+/*   Updated: 2024/10/10 17:06:37 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ void	select_builtin(t_token **tokens, char *input)
 		}
 		else if (ft_strncmp(aux->command, ECHO_TXT, 4) == 0)
 			do_echo(aux->command);
+		// else if (ft_strcmp(aux->command, HSTRY_TXT) == 0)
+		// 	do_env();
+		else if (ft_strcmp(input, PWD_TXT) == 0)
+			do_pwd();
 		else if (ft_strcmp(aux->command, HSTRY_TXT) == 0)
 			show_history();
 		if (ft_strcmp(input, "") != 0)

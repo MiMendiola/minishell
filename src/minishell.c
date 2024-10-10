@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:15 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/09/30 08:59:07 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/10 21:33:58 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,18 @@ void	show_lst(t_token **stack)
 int	main(int ac, char **av, char **env)
 {
 	t_token	**tokens;
+	t_env	**env_list;
 	char	*input;
 
 	tokens = ft_calloc(1, sizeof(t_token *));
+	env_list = ft_calloc(1, sizeof(t_env *));
 	if (ac == 0 && av == NULL && env == NULL)
 		printf("Hello");
 	while (1)
 	{
 		input = readline(" 💻 $ ");
 		free_tokens(tokens);
+		ft_init_env(env_list, env);
 		create_tokens(input, tokens);
 		if (!quotes_handler(tokens, input))
 			continue ;

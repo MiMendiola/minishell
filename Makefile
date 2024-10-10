@@ -8,6 +8,8 @@ SRC_FILES	=	minishell.c \
 				built-ins/core_builtins.c \
 				built-ins/echo.c \
 				built-ins/history.c \
+				built-ins/env.c \
+				built-ins/pwd.c \
 				parsing/command_list.c \
 				parsing/expansor.c \
 				parsing/lexer.c \
@@ -16,6 +18,8 @@ SRC_FILES	=	minishell.c \
 				parsing/quotes/quote_parser.c \
 				parsing/tokenizer.c \
 				parsing/utils_stack.c \
+				parsing/env_utils.c \
+				parsing/env_utils_2.c \
 
 SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 

@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/09/30 08:54:19 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:41:09 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,29 @@ void	do_echo(char *input);
 
 //  HISTORY.C
 void	show_history(void);
+
+
+
+
+
+
+void	do_env(char	**args, t_env *env);
+void	do_pwd(void);
+
+
+void ft_addback_env(t_env **lst, t_env *new);
+void	ft_init_env(t_env **env_list, char **env);
+t_env *ft_find_env(t_env *env_list, char *name);
+
+void    ft_del_env(t_env *env_node);
+
+
+
+
+
+
+
+
 
 /***************
 **  PARSING

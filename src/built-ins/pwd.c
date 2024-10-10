@@ -1,41 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 13:29:16 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/10/10 16:25:33 by mmendiol         ###   ########.fr       */
+/*   Created: 2024/08/05 16:59:23 by anadal-g          #+#    #+#             */
+/*   Updated: 2024/10/10 17:07:40 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
+#include "../../includes/minishell.h"
 
-typedef struct s_token	t_token;
-typedef struct s_env	t_env;
-
-struct					s_token
+void	do_pwd(void)
 {
-	int					id;
-	char				*command;
-	char				**tokens;
-	char				*infile;
-	char				*outfile;
-	t_token				*prev;
-	t_token				*next;
-};
+	char	*path;
 
-struct					s_env
-{
-	char				*args;
-	char				*name;
-	int					status;
-	char				*value;
-	t_env				*next;
-	t_env				*last;
-	t_env				*env_list;
-};
-
-#endif
+	path = getcwd(NULL, 0);
+	printf("%s\n", path);
+	free(path);
+}

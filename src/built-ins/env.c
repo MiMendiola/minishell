@@ -1,41 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 13:29:16 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/10/10 16:25:33 by mmendiol         ###   ########.fr       */
+/*   Created: 2024/08/05 16:58:03 by anadal-g          #+#    #+#             */
+/*   Updated: 2024/10/10 17:05:14 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
+#include "../../includes/minishell.h"
 
-typedef struct s_token	t_token;
-typedef struct s_env	t_env;
-
-struct					s_token
+void	do_env(char	**args, t_env *env)
 {
-	int					id;
-	char				*command;
-	char				**tokens;
-	char				*infile;
-	char				*outfile;
-	t_token				*prev;
-	t_token				*next;
-};
-
-struct					s_env
-{
-	char				*args;
-	char				*name;
-	int					status;
-	char				*value;
-	t_env				*next;
-	t_env				*last;
-	t_env				*env_list;
-};
-
-#endif
+	if (args[1])
+	{	
+		printf("No such file or directory\n");
+		return ;
+	}
+	while (env)
+	{
+		if (env->value && ft_strcmp(env-> value, ""))
+		{
+			printf("%s", env->name);
+			printf("=");
+			printf("%s", env->value);
+		}
+		env = env->next;
+	}
+}
