@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:15 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/10 21:33:58 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/12 01:57:46 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,29 @@ void	show_lst(t_token **stack)
 	}
 }
 
+void show_env_list(t_env **env_list)
+{
+    t_env *current_node;
+    
+    current_node = *env_list;
+    while (current_node != NULL)
+    {
+        printf("NODE ADDRESS  ->  %p\n", current_node);
+        if (current_node->prev)
+            printf("PREV NODE     ->  %p\n", current_node->prev);
+        else
+            printf("PREV NODE     ->  [None]\n");
+        printf("ENV NAME      ->  %s\n", current_node->name);
+        printf("ENV VALUE     ->  %s\n", current_node->value);
+		printf("SH_LVL VALUE  ->  %s\n", current_node->sh_lvl);
+        if (current_node->next)
+            printf("NEXT NODE     ->  %p\n\n", current_node->next);
+        else
+            printf("NEXT NODE     ->  [None]\n\n");
+        current_node = current_node->next;
+    }
+}
+
 int	main(int ac, char **av, char **env)
 {
 	t_token	**tokens;
@@ -59,17 +82,26 @@ int	main(int ac, char **av, char **env)
 	env_list = ft_calloc(1, sizeof(t_env *));
 	if (ac == 0 && av == NULL && env == NULL)
 		printf("Hello");
+
+
+
+	ft_init_env(env_list, env);
+
+
+	show_env_list(env_list);
+
+
+	
 	while (1)
 	{
 		input = readline(" 💻 $ ");
-		free_tokens(tokens);
-		ft_init_env(env_list, env);
+		free_tokens(tokens);	
 		create_tokens(input, tokens);
 		if (!quotes_handler(tokens, input))
 			continue ;
 		lexerize(tokens);
 		select_builtin(tokens, input);
-		show_lst(tokens);
+		//show_lst(tokens);
 		free(input);
 	}
 	free(tokens);

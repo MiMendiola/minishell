@@ -1,40 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 13:29:16 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/10/11 10:24:13 by lmntrix          ###   ########.fr       */
+/*   Created: 2024/09/11 12:24:03 by anadal-g          #+#    #+#             */
+/*   Updated: 2024/10/12 08:21:37 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
+#include "../../includes/minishell.h"
 
-typedef struct s_token	t_token;
-typedef struct s_env	t_env;
-
-struct					s_token
+void	perror_error(char *msg)
 {
-	int					id;
-	char				*command;
-	char				**tokens;
-	char				*infile;
-	char				*outfile;
-	t_token				*prev;
-	t_token				*next;
-};
-
-struct					s_env
-{
-	char				*name;
-	char				*value;
-	char				*sh_lvl;
-	t_env				*prev;
-	t_env				*next;
-	t_env				*env_list;
-};
-
-#endif
+	perror(msg);
+	exit(1);
+}

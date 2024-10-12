@@ -10,16 +10,18 @@ SRC_FILES	=	minishell.c \
 				built-ins/history.c \
 				built-ins/env.c \
 				built-ins/pwd.c \
+				env/env_creator.c \
+				env/env_utils.c \
+				env/shlvl.c \
+				parsing/quotes/quote_handler.c \
+				parsing/quotes/quote_parser.c \
 				parsing/command_list.c \
+				parsing/errors.c \
 				parsing/expansor.c \
 				parsing/lexer.c \
 				parsing/parsing.c \
-				parsing/quotes/quote_handler.c \
-				parsing/quotes/quote_parser.c \
 				parsing/tokenizer.c \
 				parsing/utils_stack.c \
-				parsing/env_utils.c \
-				parsing/env_utils_2.c \
 
 SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 
