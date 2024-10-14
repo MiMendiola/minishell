@@ -3,48 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_stack.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:02:31 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/09/28 07:38:06 by lmntrix          ###   ########.fr       */
+/*   Updated: 2024/10/14 16:39:48 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	free_list(t_token **stack)
-{
-	t_token	*aux;
-
-	while (*stack)
-	{
-		aux = (*stack)->next;
-		free((*stack)->command);
-		free_matrix((*stack)->tokens);
-		free(*stack);
-		*stack = aux;
-	}
-	*stack = NULL;
-}
-
-void	free_tokens(t_token **tokens)
-{
-	t_token	*current;
-	t_token	*next;
-
-	if (!tokens || !*tokens)
-		return ;
-	current = *tokens;
-	while (current)
-	{
-		next = current->next;
-		free(current->command);
-		free_matrix(current->tokens);
-		free(current);
-		current = next;
-	}
-	*tokens = NULL;
-}
 
 t_token	*last_node(t_token *lst)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/13 10:04:55 by lmntrix          ###   ########.fr       */
+/*   Updated: 2024/10/14 16:51:17 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,11 @@ void	append_other_characters(char **result, size_t *result_len, char c);
 char	*expand_variable(char *str);
 void	expander(char **tokens);
 
+//  FREES.C
+void	free_list(t_token **stack);
+void	free_tokens(t_token **tokens);
+void	free_env(t_env **env);
+
 //  LEXER.C
 void	lexerize_process(t_token *aux);
 void	lexerize(t_token **tokens);
@@ -121,8 +126,6 @@ int		token_counter(char *str, char c);
 char	**tokenizer(char const *command);
 
 //  UTILS_STACK.C
-void	free_list(t_token **stack);
-void	free_tokens(t_token **tokens);
 t_token	*last_node(t_token *lst);
 void	add_node_back(t_token **stack, t_token *new);
 t_token	*create_node(int id, char *command);

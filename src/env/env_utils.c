@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:07:53 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/13 09:56:51 by lmntrix          ###   ########.fr       */
+/*   Updated: 2024/10/14 13:59:45 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void	ft_del_env(t_env *env_node)
 	}
 	if (env_node->name != NULL)
 		free(env_node->name);
+    if (env_node->value != NULL)
+		free(env_node->value);
 	if (env_node->sh_lvl != NULL)
 		free(env_node->sh_lvl);
 	if (env_node->next != NULL)
