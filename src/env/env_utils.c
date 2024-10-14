@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_utils_2.c                                      :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:07:53 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/12 07:15:56 by lmntrix          ###   ########.fr       */
+/*   Updated: 2024/10/13 09:56:51 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_env	*ft_find_env(t_env *env_list, char *name)
 	token = env_list;
 	while (token != NULL && name != NULL)
 	{
-		if (ft_strncmp(token->name, name, -1) == 0)
+		if (ft_strncmp(token->name, name, ft_strlen(name)) == 0)
 			return (token);
 		token = token->next;
 	}
@@ -86,22 +86,4 @@ void	ft_del_env(t_env *env_node)
 	if (env_node->prev != NULL)
 		env_node->prev->next = env_node->next;
 	free(env_node);
-}
-
-void  ft_unset_env(t_env **envp, t_env *token)
-{
-    t_env *result;
-    t_env *next;
-
-    result = ft_find_env(*envp, token->name);
-    if (result == NULL)
-        return;
-    if (result == *envp)
-    {
-        next = (*envp)->next;
-        ft_del_env(result);
-        *envp = next;
-    }
-    else
-        ft_del_env(result);
 }

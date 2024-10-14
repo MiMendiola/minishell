@@ -1,38 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 12:24:03 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/13 10:04:33 by lmntrix          ###   ########.fr       */
+/*   Created: 2024/08/05 16:59:23 by anadal-g          #+#    #+#             */
+/*   Updated: 2024/10/13 09:39:50 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-
-void	show_error(char *str, char *cmd_file)
+void	do_exit(t_token **tokens, char *input)
 {
-	char	*msg;
-
-	msg = ft_strjoin(str, cmd_file);
-	ft_putstr_fd(msg, 2);
-	ft_putstr_fd("\n", 2);
-}
-
-void	show_error_reverse(char *cmd_file, char *str)
-{
-	char	*msg;
-
-	msg = ft_strjoin(cmd_file, str);
-	ft_putstr_fd(msg, 2);
-	ft_putstr_fd("\n", 2);
-}
-
-void	perror_error(char *msg)
-{
-	perror(msg);
-	exit(1);
+	show_lst(tokens);
+    ft_printf("%s\n", EXIT_TXT);
+    free_list(tokens);
+    free(input);
+    exit(EXIT_FAILURE);
 }

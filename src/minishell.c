@@ -6,20 +6,11 @@
 /*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:15 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/12 01:57:46 by lmntrix          ###   ########.fr       */
+/*   Updated: 2024/10/13 10:03:38 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	show_error(char *str, char *cmd_file)
-{
-	char	*msg;
-
-	msg = ft_strjoin(str, cmd_file);
-	ft_putstr_fd(msg, 2);
-	ft_putstr_fd("\n", 2);
-}
 
 void	show_lst(t_token **stack)
 {
@@ -82,16 +73,8 @@ int	main(int ac, char **av, char **env)
 	env_list = ft_calloc(1, sizeof(t_env *));
 	if (ac == 0 && av == NULL && env == NULL)
 		printf("Hello");
-
-
-
 	ft_init_env(env_list, env);
-
-
-	show_env_list(env_list);
-
-
-	
+	//show_env_list(env_list);
 	while (1)
 	{
 		input = readline(" 💻 $ ");
@@ -100,7 +83,7 @@ int	main(int ac, char **av, char **env)
 		if (!quotes_handler(tokens, input))
 			continue ;
 		lexerize(tokens);
-		select_builtin(tokens, input);
+		select_builtin(tokens, env_list, input);
 		//show_lst(tokens);
 		free(input);
 	}

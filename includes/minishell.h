@@ -6,7 +6,7 @@
 /*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/12 08:22:58 by lmntrix          ###   ########.fr       */
+/*   Updated: 2024/10/13 10:04:55 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,27 +26,36 @@
 # include <limits.h>
 
 void	show_lst(t_token **stack);
-void	show_error(char *str, char *cmd_file);
 
 /*===========================================*/
 /*                BUILTINGS                  */
 /*===========================================*/
 //  CORE_BUILTINS.C
-void	select_builtin(t_token **tokens, char *input);
+void	select_builtin(t_token **tokens, t_env **env, char *input);
 
 //  ECHO.C
 void	do_echo(char *input);
 
-//  HISTORY.C
-void	show_history(void);
+//	CD.C
+
 
 //	PWD.D
 void	do_pwd(void);
 
-//	ENV.C
-void	do_env(char **args, t_env *env);
+//	EXPORT.C
+void	do_export(t_token *token, t_env **env);
 
-//	CD.C
+//	UNSET.C
+void  do_unset(t_token *token, t_env **env);
+
+//	ENV.C
+void	do_env(t_env *env);
+
+//	EXIT.C
+void	do_exit(t_token **tokens, char *input);
+
+//  HISTORY.C
+void	show_history(void);
 
 /*===========================================*/
 /*                   ENV                     */
@@ -60,7 +69,6 @@ t_env	*ft_new_env(char *name, char *value);
 void	ft_addback_env(t_env **lst, t_env *new);
 t_env	*ft_find_env(t_env *env_list, char *name);
 void	ft_del_env(t_env *env_node);
-void	ft_unset_env(t_env **envp, t_env *token);
 
 //  SHLVL.C
 void	set_shell_lvl_aument(t_env **envp, t_env *data);
@@ -85,6 +93,8 @@ void	add_node_tokens(t_token **stack_tokens, char **splited_tokens);
 void	create_tokens(char *input, t_token **tokens);
 
 //  ERRORS.C
+void	show_error(char *str, char *cmd_file);
+void	show_error_reverse(char *cmd_file, char *str);
 void	perror_error(char *msg);
 
 //  EXPANSOR.C

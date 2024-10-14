@@ -7,9 +7,13 @@ SRC_DIR		=	src/
 SRC_FILES	=	minishell.c \
 				built-ins/core_builtins.c \
 				built-ins/echo.c \
-				built-ins/history.c \
-				built-ins/env.c \
+				built-ins/cd.c \
 				built-ins/pwd.c \
+				built-ins/export.c \
+				built-ins/unset.c \
+				built-ins/env.c \
+				built-ins/exit.c \
+				built-ins/history.c \
 				env/env_creator.c \
 				env/env_utils.c \
 				env/shlvl.c \
