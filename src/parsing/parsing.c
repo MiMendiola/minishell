@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:08:26 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/09/27 01:01:04 by lmntrix          ###   ########.fr       */
+/*   Updated: 2024/10/17 17:57:36 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	jump_character(char *input, int *counter, char c, int flag)
-{
-	if (flag)
-		while (input[*counter] && character_finder(input[*counter], c))
-			(*counter)++;
-	else
-		while (input[*counter] && !character_finder(input[*counter], c))
-			(*counter)++;
-}
 
 void	read_till_character(char *input, int *start, int *counter, char c)
 {

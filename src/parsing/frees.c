@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:24:03 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/10/14 16:17:00 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:22:08 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	free_env(t_env **env)
 	{
 		next = current->next;
 		free(current->name);
-		free_matrix(current->value);
+		free_matrix(&current->value);
 		free(current);
 		current = next;
 	}

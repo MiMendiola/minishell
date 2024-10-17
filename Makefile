@@ -22,6 +22,7 @@ SRC_FILES	=	minishell.c \
 				parsing/command_list.c \
 				parsing/errors.c \
 				parsing/expansor.c \
+				parsing/frees.c \
 				parsing/lexer.c \
 				parsing/parsing.c \
 				parsing/tokenizer.c \

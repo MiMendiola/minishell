@@ -6,16 +6,16 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/14 16:51:17 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:18:15 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../libft/includes/libft.h"
 # include "./defines.h"
 # include "./structs.h"
+# include "../libft/includes/libft.h"
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
