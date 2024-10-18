@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/18 19:13:19 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/18 19:16:25 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <limits.h>
 
 void	show_lst(t_token **stack);
+char	**redir_divisor(char const *s);
 
 /*===========================================*/
 /*                BUILTINGS                  */
