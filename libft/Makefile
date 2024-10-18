@@ -24,7 +24,8 @@ SRCS_BONUS = $(addprefix ./bonus/, ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_
 				ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c)
 
 SRCS_ADDITIONAL = $(addprefix ./additional/, free_matrix.c ft_strchr_bool.c \
-					nodes.c free_matrix_bool.c character_finder.c jump_character.c)
+					nodes.c free_matrix_bool.c character_finder.c jump_character.c \
+					is_redir.c )
 
 OBJS = $(SRCS:.c=.o)
 OBJS_GNL = $(SRCS_GNL:.c=.o)

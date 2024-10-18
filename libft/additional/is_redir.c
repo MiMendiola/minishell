@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   jump_character.c                                   :+:      :+:    :+:   */
+/*   is_redir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/17 17:55:53 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/10/18 14:34:58 by mmendiol         ###   ########.fr       */
+/*   Created: 2024/10/18 19:11:58 by mmendiol          #+#    #+#             */
+/*   Updated: 2024/10/18 19:12:14 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-void	jump_character(char *input, int *counter, char c, int flag)
+int	is_redir(char *str, int i)
 {
-	if (flag)
-		while (input[*counter] && character_finder(input[*counter], c))
-			(*counter)++;
-	else
-		while (input[*counter] && !character_finder(input[*counter], c))
-			(*counter)++;
+	if (str[i] == '<' && str[i + 1] == '<')
+		return (2);
+	else if (str[i] == '>' && str[i + 1] == '>')
+		return (2);
+	else if (str[i] == '<' || str[i] == '>')
+		return (1);
+	return (0);
 }
