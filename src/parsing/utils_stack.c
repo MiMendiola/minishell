@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:02:31 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/10/18 19:16:05 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/24 17:26:23 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,11 @@ t_token	*create_node(int id, char *command)
 		return (NULL);
 	tokens->id = id;
 	tokens->command = command;
-	if (ft_strchr(command, '<'))
+	if (ft_strchr(command, '<') || ft_strchr(command, '>'))
+	{
 		tokens->tokens = redir_divisor(command);
+		parse_redirections(tokens);
+	}
 	else
 		tokens->tokens = command_spliter(command, ' ');
 	tokens->prev = NULL;

@@ -17,6 +17,8 @@ SRC_FILES	=	minishell.c \
 				env/env_creator.c \
 				env/env_utils.c \
 				env/shlvl.c \
+				exec/redir.c \
+				exec/utils_exec.c \
 				parsing/quotes/quote_handler.c \
 				parsing/quotes/quote_parser.c \
 				parsing/command_list.c \
@@ -25,7 +27,6 @@ SRC_FILES	=	minishell.c \
 				parsing/frees.c \
 				parsing/lexer.c \
 				parsing/parsing.c \
-				parsing/redir.c \
 				parsing/tokenizer.c \
 				parsing/utils_stack.c \
 

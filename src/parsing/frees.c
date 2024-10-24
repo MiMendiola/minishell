@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:24:03 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/10/16 18:22:08 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/24 17:50:28 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	free_tokens(t_token **tokens)
 		next = current->next;
 		free(current->command);
 		free_matrix(current->tokens);
+		free_iofile(current->infile);
+		free_iofile(current->outfile);
 		free(current);
 		current = next;
 	}
@@ -63,4 +65,17 @@ void	free_env(t_env **env)
 		current = next;
 	}
 	*env = NULL;
+}
+
+void	free_iofile(t_iofile *iofile)
+{
+	t_iofile	*tmp;
+
+	while (iofile)
+	{
+		tmp = iofile;
+		iofile = iofile->next;
+		free(tmp->name);
+		free(tmp);
+	}
 }

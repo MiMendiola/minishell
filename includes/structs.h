@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:29:16 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/10/11 10:24:13 by lmntrix          ###   ########.fr       */
+/*   Updated: 2024/10/24 16:19:55 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,33 @@
 
 typedef struct s_token	t_token;
 typedef struct s_env	t_env;
+typedef struct s_iofile	t_iofile;
+enum			e_iotype;
+
+enum					e_iotype
+{
+	INFILE,
+	HEREDOC,
+	APPEND,
+	TRUCT
+};
+
+struct					s_iofile
+{
+	char				*name;
+	int					fd;
+	enum e_iotype		type;
+	struct s_iofile		*prev;
+	struct s_iofile		*next;
+};
 
 struct					s_token
 {
 	int					id;
 	char				*command;
 	char				**tokens;
-	char				*infile;
-	char				*outfile;
+	t_iofile			*infile;
+	t_iofile			*outfile;
 	t_token				*prev;
 	t_token				*next;
 };
@@ -31,7 +50,6 @@ struct					s_env
 {
 	char				*name;
 	char				*value;
-	char				*sh_lvl;
 	t_env				*prev;
 	t_env				*next;
 	t_env				*env_list;

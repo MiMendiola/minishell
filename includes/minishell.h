@@ -6,27 +6,26 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/18 19:16:25 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/24 18:38:16 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "../libft/includes/libft.h"
 # include "./defines.h"
 # include "./structs.h"
-# include "../libft/includes/libft.h"
 # include <fcntl.h>
+# include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include <limits.h>
 
 void	show_lst(t_token **stack);
-char	**redir_divisor(char const *s);
 
 /*===========================================*/
 /*                BUILTINGS                  */
@@ -39,7 +38,6 @@ void	do_echo(char *input);
 
 //	CD.C
 
-
 //	PWD.D
 void	do_pwd(void);
 
@@ -47,7 +45,7 @@ void	do_pwd(void);
 void	do_export(t_token *token, t_env **env);
 
 //	UNSET.C
-void  do_unset(t_token *token, t_env **env);
+void	do_unset(t_token *token, t_env **env);
 
 //	ENV.C
 void	do_env(t_env *env);
@@ -74,6 +72,14 @@ void	ft_del_env(t_env *env_node);
 //  SHLVL.C
 void	set_shell_lvl_aument(t_env **envp, t_env *data);
 void	set_shell_lvl(t_env **envp);
+
+/*===========================================*/
+/*                   EXEC                    */
+/*===========================================*/
+//  REDIR.C
+char	**redir_divisor(char const *s);
+
+void	parse_redirections(t_token *token);
 
 /*===========================================*/
 /*               PARSING                     */
@@ -109,6 +115,7 @@ void	expander(char **tokens);
 void	free_list(t_token **stack);
 void	free_tokens(t_token **tokens);
 void	free_env(t_env **env);
+void	free_iofile(t_iofile *iofile);
 
 //  LEXER.C
 void	lexerize_process(t_token *aux);

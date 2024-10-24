@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 12:49:47 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/18 19:11:53 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/24 18:36:30 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	read_hasta_caracter(char *input, int *start, int *counter)
 			quote = input[(*counter)++];
 			jump_character(input, counter, quote, TRUE);
 		}
-		else if (is_redir(input, *counter))
+		else if (is_redir(input, *counter) || input[*counter] == ' ' || input[*counter] == '\t' || input[*counter] == '\n')
 			break ;
 		(*counter)++;
 	}
@@ -32,20 +32,20 @@ void	read_hasta_caracter(char *input, int *start, int *counter)
 
 int	process_operator_or_space(char **r, char *str, int *i, int *commands)
 {
-    int op_len;
+	int	op_len;
 
-    while (str[*i] && (str[*i] == ' ' || str[*i] == '\t' || str[*i] == '\n'))
-        (*i)++;
-    if (str[*i] == '\0')
-        return (0);
-    op_len = is_redir(str, *i);
-    if (op_len)
-    {
-        r[(*commands)++] = ft_substr(str, *i, op_len);
-        *i += op_len;
-        return (1);
-    }
-    return (0);
+	while (str[*i] && (str[*i] == ' ' || str[*i] == '\t' || str[*i] == '\n'))
+		(*i)++;
+	if (str[*i] == '\0')
+		return (0);
+	op_len = is_redir(str, *i);
+	if (op_len)
+	{
+		r[(*commands)++] = ft_substr(str, *i, op_len);
+		*i += op_len;
+		return (1);
+	}
+	return (0);
 }
 
 int	redir_command_spliter(char **r, char *str)
@@ -61,11 +61,11 @@ int	redir_command_spliter(char **r, char *str)
 	while (str[i])
 	{
 		if (process_operator_or_space(r, str, &i, &commands))
-			continue;
+			continue ;
 		read_hasta_caracter(str, &j, &i);
 		tmp_substr = ft_substr(str, j, i - j);
 		if (!tmp_substr || !*tmp_substr)
-			continue;
+			continue ;
 		tmp_trim = ft_strtrim(tmp_substr, " ");
 		free(tmp_substr);
 		if (!tmp_trim)
@@ -78,8 +78,8 @@ int	redir_command_spliter(char **r, char *str)
 
 void	conditional_operator_counter(char *str, int *i, int *commands)
 {
-	int		op_len;
-	int		in_word;
+	int	op_len;
+	int	in_word;
 
 	in_word = 0;
 	while (str[++(*i)])
@@ -91,6 +91,8 @@ void	conditional_operator_counter(char *str, int *i, int *commands)
 			*i += (op_len - 1);
 			in_word = 0;
 		}
+		else if (str[*i] == ' ' || str[*i] == '\t' || str[*i] == '\n')
+			in_word = 0;
 		else if (!is_redir(str, *i))
 		{
 			if (!in_word)

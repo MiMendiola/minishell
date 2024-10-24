@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:15 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/14 16:39:59 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/24 17:31:57 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	show_lst(t_token **stack)
 {
 	t_token	*aux;
 	int		i;
+	t_iofile	*io_aux;
 
 	aux = *stack;
 	while (aux != NULL)
@@ -30,8 +31,24 @@ void	show_lst(t_token **stack)
 		{
 			i = -1;
 			while (aux->tokens[++i])
-			{
 				printf("TOKEN[%d]	->	[%s]\n", i, aux->tokens[i]);
+		}
+		if (aux->infile)
+		{
+			io_aux = aux->infile;
+			while (io_aux)
+			{
+				printf("INFILE		->	[%s] (TYPE: %d)\n", io_aux->name, io_aux->type);
+				io_aux = io_aux->next;
+			}
+		}
+		if (aux->outfile)
+		{
+			io_aux = aux->outfile;
+			while (io_aux)
+			{
+				printf("OUTFILE		->	[%s] (TYPE: %d)\n", io_aux->name, io_aux->type);
+				io_aux = io_aux->next;
 			}
 		}
 		printf("PREV NODE	->	%p\n", aux->prev);
@@ -39,6 +56,7 @@ void	show_lst(t_token **stack)
 		aux = aux->next;
 	}
 }
+
 
 void show_env_list(t_env **env_list)
 {
@@ -54,7 +72,6 @@ void show_env_list(t_env **env_list)
             printf("PREV NODE     ->  [None]\n");
         printf("ENV NAME      ->  %s\n", current_node->name);
         printf("ENV VALUE     ->  %s\n", current_node->value);
-		printf("SH_LVL VALUE  ->  %s\n", current_node->sh_lvl);
         if (current_node->next)
             printf("NEXT NODE     ->  %p\n\n", current_node->next);
         else
