@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/24 18:38:16 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/25 17:07:09 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,15 @@ void	set_shell_lvl(t_env **envp);
 /*===========================================*/
 /*                   EXEC                    */
 /*===========================================*/
+//  PARSING_REDIR.C
+void	parse_redirections(t_token *token);
+
 //  REDIR.C
 char	**redir_divisor(char const *s);
 
-void	parse_redirections(t_token *token);
+//  UTILS_EXEC.C
+void	add_iofile(t_iofile **list, char *filename, enum e_iotype type);
+void	read_till_character_redir(char *input, int *start, int *counter);
 
 /*===========================================*/
 /*               PARSING                     */

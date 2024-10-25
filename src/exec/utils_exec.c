@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 17:12:45 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/10/24 18:41:07 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/25 17:18:32 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,79 +39,35 @@ void	add_iofile(t_iofile **list, char *filename, enum e_iotype type)
 	}
 }
 
-enum e_iotype	get_redirection_type(char *token)
+t_iofile	*first_iofile(t_iofile *lst)
 {
-	if (ft_strcmp(token, "<") == 0)
-		return INFILE;
-	else if (ft_strcmp(token, "<<") == 0)
-		return HEREDOC;
-	else if (ft_strcmp(token, ">") == 0)
-		return TRUCT;
-	else if (ft_strcmp(token, ">>") == 0)
-		return APPEND;
-	else
-		return -1;
+	while (lst && lst->prev != NULL)
+		lst = lst->prev;
+	return (lst);
 }
 
-
-void	detect_redirections(t_token *token)
+t_iofile	*last_iofile(t_iofile *lst)
 {
-	int				i;
-	enum e_iotype	type;
-	char			**tokens;
+	while (lst && lst->next != NULL)
+		lst = lst->next;
+	return (lst);
+}
 
-	tokens = token->tokens;
-	i = 0;
-	while (tokens[i])
+void	read_till_character_redir(char *input, int *start, int *counter)
+{
+	char	quote;
+
+	*start = *counter;
+	while (input[*counter])
 	{
-		type = get_redirection_type(tokens[i]);
-		if ((int)type == -1)
+		if (input[*counter] == DQUOTES || input[*counter] == SQUOTES)
 		{
-			i++;
-			continue ;
+			quote = input[(*counter)++];
+			jump_character(input, counter, quote, TRUE);
 		}
-		if (tokens[i + 1])
-		{
-			if (type == INFILE || type == HEREDOC)
-				add_iofile(&token->infile, tokens[i + 1], type);
-			else
-				add_iofile(&token->outfile, tokens[i + 1], type);
-		}
-		i += 2;
+		else if (is_redir(input, *counter) || input[*counter] == ' '
+			|| input[*counter] == '\t' || input[*counter] == '\n')
+			break ;
+		(*counter)++;
 	}
-}
-
-
-void	remove_redirection_tokens(char **tokens)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (tokens[i])
-	{
-		if (ft_strcmp(tokens[i], "<") == 0 || ft_strcmp(tokens[i], "<<") == 0
-			|| ft_strcmp(tokens[i], ">") == 0 || ft_strcmp(tokens[i],
-				">>") == 0)
-		{
-			free(tokens[i]);
-			free(tokens[i + 1]);
-			j = i;
-			while (tokens[j + 2])
-			{
-				tokens[j] = tokens[j + 2];
-				j++;
-			}
-			tokens[j] = NULL;
-			tokens[j + 1] = NULL;
-		}
-		else
-			i++;
-	}
-}
-
-void	parse_redirections(t_token *token)
-{
-	detect_redirections(token);
-	remove_redirection_tokens(token->tokens);
 }

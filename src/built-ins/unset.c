@@ -6,17 +6,17 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 21:01:25 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/10/14 13:41:35 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/25 17:19:47 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void  do_unset(t_token *token, t_env **env)
+void	do_unset(t_token *token, t_env **env)
 {
-	int i;
-	t_env *result;
-	t_env *next;
+	int		i;
+	t_env	*result;
+	t_env	*next;
 
 	i = 1;
 	if (!token->tokens[i] && ft_strcmp(token->tokens[0], UNSET_TXT) != 0)
@@ -34,5 +34,5 @@ void  do_unset(t_token *token, t_env **env)
 		}
 		else
 			ft_del_env(result);
-	}  
+	}
 }

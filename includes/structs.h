@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:29:16 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/10/24 16:19:55 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/25 17:22:42 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 typedef struct s_token	t_token;
 typedef struct s_env	t_env;
 typedef struct s_iofile	t_iofile;
-enum			e_iotype;
+enum					e_iotype;
 
 enum					e_iotype
 {
 	INFILE,
 	HEREDOC,
 	APPEND,
-	TRUCT
+	TRUNCT
 };
 
 struct					s_iofile

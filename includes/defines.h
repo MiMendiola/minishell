@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:18:11 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/10/13 10:07:00 by lmntrix          ###   ########.fr       */
+/*   Updated: 2024/10/25 17:22:09 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,8 @@
 # define COMMAND_NOT_FOUND_REVERSE ": command not found 👺"
 # define QUOTES_NOT_VALID " 👺 minishell: invalid quotes "
 
-#define RED "\x1b[31m"
-#define GREEN "\x1b[32m"
-#define CLEAR "\x1b[0m"
-
+# define RED "\x1b[31m"
+# define GREEN "\x1b[32m"
+# define CLEAR "\x1b[0m"
 
 #endif

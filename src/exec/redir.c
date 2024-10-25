@@ -6,29 +6,11 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 12:49:47 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/24 18:36:30 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/25 17:11:17 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	read_hasta_caracter(char *input, int *start, int *counter)
-{
-	char	quote;
-
-	*start = *counter;
-	while (input[*counter])
-	{
-		if (input[*counter] == DQUOTES || input[*counter] == SQUOTES)
-		{
-			quote = input[(*counter)++];
-			jump_character(input, counter, quote, TRUE);
-		}
-		else if (is_redir(input, *counter) || input[*counter] == ' ' || input[*counter] == '\t' || input[*counter] == '\n')
-			break ;
-		(*counter)++;
-	}
-}
 
 int	process_operator_or_space(char **r, char *str, int *i, int *commands)
 {
@@ -62,7 +44,7 @@ int	redir_command_spliter(char **r, char *str)
 	{
 		if (process_operator_or_space(r, str, &i, &commands))
 			continue ;
-		read_hasta_caracter(str, &j, &i);
+		read_till_character_redir(str, &j, &i);
 		tmp_substr = ft_substr(str, j, i - j);
 		if (!tmp_substr || !*tmp_substr)
 			continue ;

@@ -17,6 +17,7 @@ SRC_FILES	=	minishell.c \
 				env/env_creator.c \
 				env/env_utils.c \
 				env/shlvl.c \
+				exec/parsing_redir.c \
 				exec/redir.c \
 				exec/utils_exec.c \
 				parsing/quotes/quote_handler.c \
@@ -82,13 +83,4 @@ fclean:
 
 re: fclean all
 
-.PHONY: all clean fclean re  
-
-
-r: run
-run: all
-	@./$(NAME)
-
-v: valgrind
-valgrind: all
-	@valgrind ./$(NAME)
+.PHONY: all clean fclean re

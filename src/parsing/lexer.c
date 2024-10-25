@@ -6,13 +6,13 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:12:11 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/10/03 17:44:32 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/25 17:19:40 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void lexerize_process(t_token *aux)
+void	lexerize_process(t_token *aux)
 {
 	int		i;
 	char	**quote_divisor;
@@ -33,7 +33,6 @@ void lexerize_process(t_token *aux)
 		free_matrix(quote_divisor);
 	}
 }
-
 
 void	lexerize(t_token **tokens)
 {
