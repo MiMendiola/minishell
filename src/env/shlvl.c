@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 12:58:11 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/25 17:19:08 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/25 17:27:32 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@
 }*/
 void	set_shell_lvl(t_env **envp)
 {
+	t_env	*data;
+	int		nb;
+	char	*aux;
+
 	data = ft_find_env(*envp, "SHLVL");
 	if (data && data->value)
 	{

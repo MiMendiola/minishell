@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:07:53 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/25 17:18:56 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/25 17:25:03 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ void	ft_del_env(t_env *env_node)
 		free(env_node->name);
 	if (env_node->value != NULL)
 		free(env_node->value);
-	if (env_node->sh_lvl != NULL)
-		free(env_node->sh_lvl);
 	if (env_node->next != NULL)
 		env_node->next->prev = env_node->prev;
 	if (env_node->prev != NULL)
