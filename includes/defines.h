@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:18:11 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/10/25 17:22:09 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:55:56 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define PATH "PATH="
 # define PATH_MAX "4096"
 # define HERE_DOC "here_doc"
-# define TMP_FILE "/tmp/pipex_tmp"
+# define TMP_FILE "/tmp/minishell_tmp"
 
 /* ================= BUILT-INS =================== */
 # define ECHO_TXT "echo"
@@ -42,6 +42,10 @@
 # define HSTRY_TXT "history"
 
 /* ================== MESSAGES =================== */
+# define CHILD "child error"
+# define PIPE "pipe error"
+# define ARGUMENTS " 👺 minishell: bad number of arguments\n"
+# define FILE " 👺 minishell: no such file or directory: "
 # define NOT_FILE " 👺 minishell: no such file or directory: "
 # define COMMAND_NOT_FOUND " 👺 minishell: command not found: "
 # define COMMAND_NOT_FOUND_REVERSE ": command not found 👺"

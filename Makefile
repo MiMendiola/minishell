@@ -28,7 +28,6 @@ SRC_FILES	=	minishell.c \
 				parsing/frees.c \
 				parsing/lexer.c \
 				parsing/parsing.c \
-				parsing/tokenizer.c \
 				parsing/utils_stack.c \
 
 SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES))

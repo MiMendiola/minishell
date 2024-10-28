@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:15 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/25 17:23:53 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:57:04 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int	main(int ac, char **av, char **env)
 		if (!quotes_handler(tokens, input))
 			continue ;
 		lexerize(tokens);
+		//EXECUTOR
 		select_builtin(tokens, env_list, input);
 		show_lst(tokens);
 		free(input);
