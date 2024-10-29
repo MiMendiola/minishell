@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/25 17:07:09 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/29 09:43:01 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,10 @@ void	set_shell_lvl(t_env **envp);
 /*===========================================*/
 /*                   EXEC                    */
 /*===========================================*/
+
+void	executor(t_token **tokens, t_env **env);
+
+
 //  PARSING_REDIR.C
 void	parse_redirections(t_token *token);
 
