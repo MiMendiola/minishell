@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/14 16:51:17 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/29 11:58:08 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,16 @@ void	select_builtin(t_token **tokens, t_env **env, char *input);
 void	do_echo(char *input);
 
 //	CD.C
-
+int do_cd(t_token *tokens, t_env *envp);
 
 //	PWD.D
 void	do_pwd(void);
 
 //	EXPORT.C
 void	do_export(t_token *token, t_env **env);
+void replace_content(t_env *envp, char *variable, char *content);
+void add_to_env(t_env **envp, char *variable, char *content);
+char **order_alf_envp2(char **new_envp);
 
 //	UNSET.C
 void  do_unset(t_token *token, t_env **env);
@@ -69,6 +72,9 @@ t_env	*ft_new_env(char *name, char *value);
 void	ft_addback_env(t_env **lst, t_env *new);
 t_env	*ft_find_env(t_env *env_list, char *name);
 void	ft_del_env(t_env *env_node);
+void  ft_unset_env(t_env **envp, t_env *token);
+void    ft_set_env(t_env **envp ,t_env *token);
+
 
 //  SHLVL.C
 void	set_shell_lvl_aument(t_env **envp, t_env *data);

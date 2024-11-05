@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:15 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/14 16:39:59 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/21 16:41:15 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	free_tokens(t_token **tokens)
+{
+	t_token	*current;
+	t_token	*next;
+
+	if (!tokens || !*tokens)
+		return ;
+	current = *tokens;
+	while (current)
+	{
+		next = current->next;
+		free(current->command);
+		free_matrix(current->tokens);
+		free(current);
+		current = next;
+	}
+	*tokens = NULL;
+}
 
 void	show_lst(t_token **stack)
 {
@@ -84,7 +103,7 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		lexerize(tokens);
 		select_builtin(tokens, env_list, input);
-		show_lst(tokens);
+		//show_lst(tokens);
 		free(input);
 	}
 	free(tokens);

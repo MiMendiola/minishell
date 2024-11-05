@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nodes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:04:16 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/05/06 15:21:20 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/10/14 18:24:08 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,38 +35,38 @@ void	free_list(t_random_name **stack)
 	free(stack);
 }
 
-t_random_name	*create_node(int id, char *str)
-{
-	t_random_name	*stack;
+// t_random_name	*create_node(int id, char *str)
+// {
+// 	t_random_name	*stack;
 
-	stack = ft_calloc(1, sizeof(t_random_name));
-	if (!stack)
-		return (NULL);
-	stack->id = id;
-	stack->str = str;
-	stack->prev = NULL;
-	stack->next = NULL;
-	return (stack);
-}
+// 	stack = ft_calloc(1, sizeof(t_random_name));
+// 	if (!stack)
+// 		return (NULL);
+// 	stack->id = id;
+// 	stack->str = str;
+// 	stack->prev = NULL;
+// 	stack->next = NULL;
+// 	return (stack);
+// }
 
-t_random_name	*last_node(t_random_name *lst)
-{
-	while (lst && lst->next != NULL)
-		lst = lst->next;
-	return (lst);
-}
+// t_random_name	*last_node(t_random_name *lst)
+// {
+// 	while (lst && lst->next != NULL)
+// 		lst = lst->next;
+// 	return (lst);
+// }
 
-void	add_node_back(t_random_name **stack, t_random_name *new)
-{
-	t_random_name	*aux;
+// void	add_node_back(t_random_name **stack, t_random_name *new)
+// {
+// 	t_random_name	*aux;
 
-	aux = last_node(*stack);
-	if (*stack != NULL)
-	{
-		new->prev = aux;
-		new->next = NULL;
-		aux->next = new;
-	}
-	else
-		*stack = new;
-}
+// 	aux = last_node(*stack);
+// 	if (*stack != NULL)
+// 	{
+// 		new->prev = aux;
+// 		new->next = NULL;
+// 		aux->next = new;
+// 	}
+// 	else
+// 		*stack = new;
+// }

@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:02:31 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/10/14 17:40:54 by anadal-g         ###   ########.fr       */
+/*   Updated: 2024/10/14 18:24:33 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_token	*create_node(int id, char *command)
 	tokens->id = id;
 	tokens->command = command;
 	tokens->tokens = command_spliter(command, ' ');
-	tokens->tokens = redirection_splitter(command);
+	// tokens->tokens = redirection_splitter(command);
 	tokens->prev = NULL;
 	tokens->next = NULL;
 	return (tokens);
