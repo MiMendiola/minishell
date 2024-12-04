@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:29:16 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/10/29 09:50:05 by lmntrix          ###   ########.fr       */
+/*   Updated: 2024/11/07 11:34:14 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ enum					e_iotype
 	INFILE,
 	HEREDOC,
 	APPEND,
-	TRUNCT
+	TRUNC,
 };
 
 struct					s_iofile

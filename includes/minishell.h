@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/29 09:43:01 by lmntrix          ###   ########.fr       */
+/*   Updated: 2024/11/25 13:08:08 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,20 @@ void	set_shell_lvl(t_env **envp);
 /*                   EXEC                    */
 /*===========================================*/
 
-void	executor(t_token **tokens, t_env **env);
+void 	executor(t_token *tokens, t_env *env);
+void	first_child(t_token *tokens, t_env *env, int *fd);
+void next_cmds(char **arg, t_env *env_path, int *pid, int *fd);
+void parent_bonus(char **arguments, t_env *env_path, int *pid, int *fd);
+void 	infile_till_last(t_iofile *infiles);
+void 	outfile_till_last(t_iofile *outfiles);
+void 	execute_command(t_token *token, t_env **env);
+char 	**env_to_array(t_env *env);
+int check_access(char *argument, t_env *env_path);
+int		check_envp(char **envp, char **flags_cmd);
+char	*check_path(char **flags_cmd, t_env *env_path);
+
+
+
 
 
 //  PARSING_REDIR.C

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:15 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/29 09:42:57 by lmntrix          ###   ########.fr       */
+/*   Updated: 2024/12/03 11:08:51 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,9 @@ int	main(int ac, char **av, char **env)
 		if (!quotes_handler(tokens, input))
 			continue ;
 		lexerize(tokens);
-		executor(tokens, env_list);
+		executor(*tokens, *env_list);
 		select_builtin(tokens, env_list, input);
-		show_lst(tokens);
+		//show_lst(tokens);
 		free(input);
 	}
 	free(tokens);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:18:11 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/10/29 09:38:17 by lmntrix          ###   ########.fr       */
+/*   Updated: 2024/11/14 10:31:49 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@
 # define DQUOTES 34
 # define SQUOTES 39
 # define PIPE 124
+# define PIPE_ERROR "pipe error"
 
 # define PATH "PATH="
 # define PATH_MAX "4096"
 # define HERE_DOC "here_doc"
 # define TMP_FILE "/tmp/minishell_tmp"
-
+# define COMMAND "bash: command not found: "
 /* ================= BUILT-INS =================== */
 # define ECHO_TXT "echo"
 # define CD_TXT "cd"

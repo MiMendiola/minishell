@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_redir.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 17:01:43 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/10/25 17:02:47 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:17:54 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ enum e_iotype	get_redirection_type(char *token)
 	else if (ft_strcmp(token, "<<") == 0)
 		return (HEREDOC);
 	else if (ft_strcmp(token, ">") == 0)
-		return (TRUNCT);
+		return (TRUNC);
 	else if (ft_strcmp(token, ">>") == 0)
 		return (APPEND);
 	else

@@ -23,6 +23,9 @@ SRC_FILES	=	minishell.c \
 				exec/parsing_redir.c \
 				exec/redir.c \
 				exec/utils_exec.c \
+				exec/pipes_bonus.c \
+				exec/pipex_bonus.c \
+				exec/checks.c \
 				parsing/quotes/quote_handler.c \
 				parsing/quotes/quote_parser.c \
 				parsing/command_list.c \
@@ -41,7 +44,7 @@ OBJ_FILES 	= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 #COMPILER
 CC		= cc
-FLAGS	= -Wall -Wextra -Werror -g3 #-fsanitize=address
+FLAGS	= -Wall -Wextra -Werror  #-fsanitize=address
 LDFLAGS = -lreadline
 INCLUDE	= -I includes
 RM		= rm -rf
