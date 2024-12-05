@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   core_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 21:01:25 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/10/25 17:20:48 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/12/05 11:51:50 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int is_builtin(const char *command)
+{
+    if (!ft_strcmp(command, "cd") || !ft_strcmp(command, "echo") ||
+        !ft_strcmp(command, "exit") || !ft_strcmp(command, "export") ||
+        !ft_strcmp(command, "unset") || !ft_strcmp(command, "env"))
+        return (1);
+    return (0);
+}
+
 
 void	select_builtin(t_token **tokens, t_env **env, char *input)
 {

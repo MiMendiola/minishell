@@ -6,11 +6,11 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:55:47 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/12/03 12:00:32 by anadal-g         ###   ########.fr       */
+/*   Updated: 2024/12/05 12:02:09 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 void heredoc(char *args[])
 {

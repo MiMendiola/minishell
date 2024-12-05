@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:15 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/12/03 11:08:51 by anadal-g         ###   ########.fr       */
+/*   Updated: 2024/12/05 11:58:51 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		lexerize(tokens);
 		executor(*tokens, *env_list);
-		select_builtin(tokens, env_list, input);
+		//select_builtin(tokens, env_list, input);
 		//show_lst(tokens);
 		free(input);
 	}

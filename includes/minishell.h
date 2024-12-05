@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/11/25 13:08:08 by anadal-g         ###   ########.fr       */
+/*   Updated: 2024/12/05 12:05:01 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	show_lst(t_token **stack);
 /*===========================================*/
 //  CORE_BUILTINS.C
 void	select_builtin(t_token **tokens, t_env **env, char *input);
+int is_builtin(const char *command);
 
 //  ECHO.C
 void	do_echo(char *input);
@@ -89,8 +90,12 @@ int check_access(char *argument, t_env *env_path);
 int		check_envp(char **envp, char **flags_cmd);
 char	*check_path(char **flags_cmd, t_env *env_path);
 
+/*===========================================*/
+/*                  NEW EXEC                    */
+/*===========================================*/
 
-
+void mid_child(t_token *token, t_env *env, int *fd, int *new_fd);
+void last_child(t_token *token, t_env *env, int *fd);
 
 
 //  PARSING_REDIR.C

@@ -17,15 +17,11 @@ SRC_FILES	=	minishell.c \
 				env/env_creator.c \
 				env/env_utils.c \
 				env/shlvl.c \
-				exec/exec_checker.c \
-				exec/exec.c \
-				exec/heredoc.c \
-				exec/parsing_redir.c \
-				exec/redir.c \
-				exec/utils_exec.c \
-				exec/pipes_bonus.c \
-				exec/pipex_bonus.c \
-				exec/checks.c \
+				exec/new_exec/executor.c \
+				exec/new_exec/exec.c \
+				exec/new_exec/childs.c \
+				exec/new_exec/heredoc.c \
+				exec/new_exec/manage_files.c \
 				parsing/quotes/quote_handler.c \
 				parsing/quotes/quote_parser.c \
 				parsing/command_list.c \

@@ -6,11 +6,11 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:25:30 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/12/03 13:19:18 by anadal-g         ###   ########.fr       */
+/*   Updated: 2024/12/05 12:02:04 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 char **env_to_array(t_env *env)
 {
