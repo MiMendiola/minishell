@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:15:14 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/12/05 12:05:16 by anadal-g         ###   ########.fr       */
+/*   Updated: 2024/12/09 16:26:22 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void one_cmd(t_token *token, t_env *env)
     }
     if (pid == 0)
     {
-        execute_command(token, &env);
+        execute_command(token, env);
         exit(EXIT_SUCCESS);
     }
     waitpid(pid, &status, 0);

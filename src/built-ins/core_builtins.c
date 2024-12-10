@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 21:01:25 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/12/05 11:51:50 by anadal-g         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:40:39 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int is_builtin(const char *command)
 {
+	printf("Llamada a builtin\n");
     if (!ft_strcmp(command, "cd") || !ft_strcmp(command, "echo") ||
         !ft_strcmp(command, "exit") || !ft_strcmp(command, "export") ||
         !ft_strcmp(command, "unset") || !ft_strcmp(command, "env"))

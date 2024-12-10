@@ -6,11 +6,24 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:25:30 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/12/05 12:02:04 by anadal-g         ###   ########.fr       */
+/*   Updated: 2024/12/09 12:11:42 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+int env_size(t_env *env)
+{
+    int size = 0;
+
+    while (env)
+    {
+        size++;
+        env = env->next;
+    }
+    return size;
+}
+
 
 char **env_to_array(t_env *env)
 {
@@ -35,7 +48,6 @@ void execute_command(t_token *token, t_env *env)
     pid_t pid;
     int infile, outfile;
     char *cmd_path;
-    char **env_array;
 
     infile = open_infile(token->infile);
     if (infile == -1)

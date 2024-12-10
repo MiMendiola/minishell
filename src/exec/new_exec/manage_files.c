@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:24:36 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/12/05 12:02:13 by anadal-g         ###   ########.fr       */
+/*   Updated: 2024/12/09 12:17:39 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	aux_open_infile(t_iofile *infile, int i, int count, int *error)
 	}
 	else
 	{
-		name = heredoc(infile->name);
+		name = heredoc(&infile->name);
 		if (!name)
 		{
 			perror_error("Error al procesar heredoc");

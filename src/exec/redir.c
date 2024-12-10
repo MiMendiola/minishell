@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 12:49:47 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/25 17:11:17 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:26:25 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void read_till_character_redir(char *input, int *start, int *counter)
+{
+    if (!input || !start || !counter)
+        return;
+    *counter = *start;
+    while (input[*counter])
+	{
+        if (input[*counter] == '<' || input[*counter] == '>')
+            break;
+        (*counter)++;
+    }
+}
+
 
 int	process_operator_or_space(char **r, char *str, int *i, int *commands)
 {

@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/12/05 12:05:01 by anadal-g         ###   ########.fr       */
+/*   Updated: 2024/12/09 12:41:58 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,20 +78,25 @@ void	set_shell_lvl(t_env **envp);
 /*                   EXEC                    */
 /*===========================================*/
 
-void 	executor(t_token *tokens, t_env *env);
+void	executor(t_token *tokens, t_env *env);
 void	first_child(t_token *tokens, t_env *env, int *fd);
-void next_cmds(char **arg, t_env *env_path, int *pid, int *fd);
-void parent_bonus(char **arguments, t_env *env_path, int *pid, int *fd);
+void	next_cmds(char **arg, t_env *env_path, int *pid, int *fd);
+void	parent_bonus(char **arguments, t_env *env_path, int *pid, int *fd);
 void 	infile_till_last(t_iofile *infiles);
 void 	outfile_till_last(t_iofile *outfiles);
-void 	execute_command(t_token *token, t_env **env);
+void 	execute_command(t_token *token, t_env *env);
+int		open_infile(t_iofile *infiles);
+int		open_outfile(t_iofile *outfiles);
+char	*find_path(char *command, char **envp);
 char 	**env_to_array(t_env *env);
-int check_access(char *argument, t_env *env_path);
-int		check_envp(char **envp, char **flags_cmd);
+int 	check_access(char *argument, t_env *env_path);
+int		check_envp(char **envp);
 char	*check_path(char **flags_cmd, t_env *env_path);
+char 	*heredoc(char *args[]);
+
 
 /*===========================================*/
-/*                  NEW EXEC                    */
+/*                  NEW EXEC                 */
 /*===========================================*/
 
 void mid_child(t_token *token, t_env *env, int *fd, int *new_fd);

@@ -22,6 +22,10 @@ SRC_FILES	=	minishell.c \
 				exec/new_exec/childs.c \
 				exec/new_exec/heredoc.c \
 				exec/new_exec/manage_files.c \
+				exec/new_exec/path.c \
+				exec/new_exec/utils_exec.c \
+				exec/parsing_redir.c \
+				exec/redir.c \
 				parsing/quotes/quote_handler.c \
 				parsing/quotes/quote_parser.c \
 				parsing/command_list.c \
