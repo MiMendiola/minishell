@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:23:37 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/12/09 16:24:55 by anadal-g         ###   ########.fr       */
+/*   Updated: 2024/12/17 12:09:42 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	add_iofile(t_iofile **list, char *filename, enum e_iotype type)
 		new_file->prev = tmp;
 	}
 }
+
 enum e_iotype	get_redirection_type(char *token)
 {
 	if (ft_strcmp(token, "<") == 0)
@@ -50,6 +51,7 @@ enum e_iotype	get_redirection_type(char *token)
 	else
 		return -1;
 }
+
 void	detect_redirections(t_token *token)
 {
 	int				i;
@@ -75,6 +77,7 @@ void	detect_redirections(t_token *token)
 		i += 2;
 	}
 }
+
 void	remove_redirection_tokens(char **tokens)
 {
 	int	i;
@@ -101,6 +104,7 @@ void	remove_redirection_tokens(char **tokens)
 			i++;
 	}
 }
+
 void	parse_redirections(t_token *token)
 {
 	detect_redirections(token);

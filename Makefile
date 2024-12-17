@@ -20,8 +20,10 @@ SRC_FILES	=	minishell.c \
 				exec/new_exec/executor.c \
 				exec/new_exec/exec.c \
 				exec/new_exec/childs.c \
+				exec/new_exec/last_childs.c \
 				exec/new_exec/heredoc.c \
-				exec/new_exec/manage_files.c \
+				exec/new_exec/manage_infile.c \
+				exec/new_exec/manage_outfile.c \
 				exec/new_exec/path.c \
 				exec/new_exec/utils_exec.c \
 				exec/parsing_redir.c \

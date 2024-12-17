@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/12/09 12:41:58 by anadal-g         ###   ########.fr       */
+/*   Updated: 2024/12/17 12:46:51 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,9 @@ char 	*heredoc(char *args[]);
 
 void mid_child(t_token *token, t_env *env, int *fd, int *new_fd);
 void last_child(t_token *token, t_env *env, int *fd);
-
+void child_aux(t_token *token, t_env *env, int fd_in, int fd_out);
+char *handle_command_path(t_token *token, t_env *env, char ***env_array);
+void setup_child_io(int fd_in, int fd_out);
 
 //  PARSING_REDIR.C
 void	parse_redirections(t_token *token);
