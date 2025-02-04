@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:25:30 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/12/17 17:10:41 by anadal-g         ###   ########.fr       */
+/*   Updated: 2025/01/31 11:46:57 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char **env_to_array(t_env *env)
 static void execute_child(int infile, int outfile, char *cmd_path, char **tokens, t_env *env)
 {
     pid_t pid;
+    char **env_array;
 
     pid = fork();
     if (pid == -1)
@@ -56,22 +57,64 @@ static void execute_child(int infile, int outfile, char *cmd_path, char **tokens
         perror("Error en fork");
         exit(EXIT_FAILURE);
     }
+
     if (pid == 0)
     {
-        dup2(infile, STDIN_FILENO);
-        dup2(outfile, STDOUT_FILENO);
+        env_array = env_to_array(env); // Convertir el entorno a array
+        if (!env_array)
+        {
+            perror("Error al convertir el entorno a array");
+            exit(EXIT_FAILURE);
+        }
+
+        if (dup2(infile, STDIN_FILENO) == -1 || dup2(outfile, STDOUT_FILENO) == -1)
+        {
+            perror("Error en redirección de entrada/salida");
+            free_env_array(env_array); // Liberar el array
+            exit(EXIT_FAILURE);
+        }
+
         close(infile);
         close(outfile);
-        if (execve(cmd_path, tokens, env_to_array(env)) == -1)
+
+        if (execve(cmd_path, tokens, env_array) == -1)
         {
             perror("Error al ejecutar el comando");
+            free_env_array(env_array); // Liberar el array
             exit(EXIT_FAILURE);
         }
     }
     close(infile);
     close(outfile);
-    waitpid(pid, NULL, 0);
+    waitpid(pid, NULL, 0); // Esperar a que el proceso hijo termine
 }
+
+// static void execute_child(int infile, int outfile, char *cmd_path, char **tokens, t_env *env)
+// {
+//     pid_t pid;
+
+//     pid = fork();
+//     if (pid == -1)
+//     {
+//         perror("Error en fork");
+//         exit(EXIT_FAILURE);
+//     }
+//     if (pid == 0)
+//     {
+//         dup2(infile, STDIN_FILENO);
+//         dup2(outfile, STDOUT_FILENO);
+//         close(infile);
+//         close(outfile);
+//         if (execve(cmd_path, tokens, env_to_array(env)) == -1)
+//         {
+//             perror("Error al ejecutar el comando");
+//             exit(EXIT_FAILURE);
+//         }
+//     }
+//     close(infile);
+//     close(outfile);
+//     waitpid(pid, NULL, 0);
+// }
 
 void execute_command(t_token *token, t_env *env)
 {

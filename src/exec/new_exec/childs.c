@@ -6,28 +6,53 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:42:07 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/12/17 17:13:09 by anadal-g         ###   ########.fr       */
+/*   Updated: 2025/01/31 11:39:10 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+// void setup_child_io(int fd_in, int fd_out)
+// {
+//     if (dup2(fd_in, STDIN_FILENO) == -1)
+//     {
+//         perror_error("Error al redirigir entrada");
+//         exit(EXIT_FAILURE);
+//     }
+//     if (dup2(fd_out, STDOUT_FILENO) == -1)
+//     {
+//         perror_error("Error al redirigir salida");
+//         exit(EXIT_FAILURE);
+//     }
+//     if (fd_in != STDIN_FILENO)
+//         close(fd_in);
+//     if (fd_out != STDOUT_FILENO && fd_out != STDERR_FILENO)
+//         close(fd_out);
+// }
+
 void setup_child_io(int fd_in, int fd_out)
 {
-    if (dup2(fd_in, STDIN_FILENO) == -1)
-    {
-        perror_error("Error al redirigir entrada");
-        exit(EXIT_FAILURE);
-    }
-    if (dup2(fd_out, STDOUT_FILENO) == -1)
-    {
-        perror_error("Error al redirigir salida");
-        exit(EXIT_FAILURE);
-    }
     if (fd_in != STDIN_FILENO)
+    {
+        if (dup2(fd_in, STDIN_FILENO) == -1)
+        {
+            perror_error("Error al redirigir entrada");
+            close(fd_in);
+            exit(EXIT_FAILURE);
+        }
         close(fd_in);
+    }
+
     if (fd_out != STDOUT_FILENO && fd_out != STDERR_FILENO)
+    {
+        if (dup2(fd_out, STDOUT_FILENO) == -1)
+        {
+            perror_error("Error al redirigir salida");
+            close(fd_out);
+            exit(EXIT_FAILURE);
+        }
         close(fd_out);
+    }
 }
 
 char *handle_command_path(t_token *token, t_env *env, char ***env_array)
@@ -58,20 +83,45 @@ static void mid_child_setup(t_token *token, t_env *env, int *new_fd)
     int fd_out;
 
     close(new_fd[0]);
+
     fd_in = open_infile(token->infile);
     if (fd_in < 0)
     {
         perror_error("Error al abrir archivo de entrada");
         exit(EXIT_FAILURE);
     }
+
     fd_out = open_outfile(token->outfile);
     if (fd_out < 0)
     {
         perror_error("Error al abrir archivo de salida");
+        close(fd_in);
         exit(EXIT_FAILURE);
     }
+
     child_aux(token, env, fd_in, fd_out);
 }
+
+// static void mid_child_setup(t_token *token, t_env *env, int *new_fd)
+// {
+//     int fd_in;
+//     int fd_out;
+
+//     close(new_fd[0]);
+//     fd_in = open_infile(token->infile);
+//     if (fd_in < 0)
+//     {
+//         perror_error("Error al abrir archivo de entrada");
+//         exit(EXIT_FAILURE);
+//     }
+//     fd_out = open_outfile(token->outfile);
+//     if (fd_out < 0)
+//     {
+//         perror_error("Error al abrir archivo de salida");
+//         exit(EXIT_FAILURE);
+//     }
+//     child_aux(token, env, fd_in, fd_out);
+// }
 
 
 void mid_child(t_token *token, t_env *env, int *fd, int *new_fd)

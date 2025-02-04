@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:55:47 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/12/17 12:47:09 by anadal-g         ###   ########.fr       */
+/*   Updated: 2025/01/28 10:52:33 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char *heredoc(char *args[])
         return NULL;
     }
     close(infile);
-    return tmp_file;
+    return (tmp_file);
 }
 
 // char *heredoc(char *args[])

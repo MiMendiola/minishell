@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:15 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/12/17 17:08:02 by anadal-g         ###   ########.fr       */
+/*   Updated: 2025/01/28 10:47:03 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	main(int ac, char **av, char **env)
 	if (ac == 0 && av == NULL && env == NULL)
 		printf("Hello");
 	ft_init_env(env_list, env);
-	// show_env_list(env_list);
+	//show_env_list(env_list);
 	while (1)
 	{
 		input = readline(" 💻 $ ");

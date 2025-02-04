@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:15:14 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/12/17 17:14:35 by anadal-g         ###   ########.fr       */
+/*   Updated: 2025/01/28 10:52:01 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,8 @@ void executor(t_token *tokens, t_env *env)
     int final_status;
 
     final_status = 0;
-    if (!tokens->next) {
+    if (!tokens->next)
+    {
         handle_single_command(tokens, env);
         return;
     }
