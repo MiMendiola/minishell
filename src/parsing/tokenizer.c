@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:59:18 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/05/11 19:59:44 by mmendiol         ###   ########.fr       */
+/*   Updated: 2025/03/22 12:12:42 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,8 @@ void	add_node_tokens(t_token **stack_tokens, char **splited_tokens)
 
 void	create_tokens(char *input, t_token **tokens)
 {
-	int		i;
 	char	**tokens_splited;
 
-	i = 0;
 	if (input != NULL)
 	{
 		tokens_splited = command_spliter(input, PIPE);
