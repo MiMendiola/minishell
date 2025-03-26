@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/12/17 12:46:51 by anadal-g         ###   ########.fr       */
+/*   Updated: 2025/03/26 13:16:29 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,42 +78,28 @@ void	set_shell_lvl(t_env **envp);
 /*                   EXEC                    */
 /*===========================================*/
 
-void	executor(t_token *tokens, t_env *env);
-void	first_child(t_token *tokens, t_env *env, int *fd);
-void	next_cmds(char **arg, t_env *env_path, int *pid, int *fd);
-void	parent_bonus(char **arguments, t_env *env_path, int *pid, int *fd);
-void 	infile_till_last(t_iofile *infiles);
-void 	outfile_till_last(t_iofile *outfiles);
-void 	execute_command(t_token *token, t_env *env);
-int		open_infile(t_iofile *infiles);
-int		open_outfile(t_iofile *outfiles);
-char	*find_path(char *command, char **envp);
-char 	**env_to_array(t_env *env);
-int 	check_access(char *argument, t_env *env_path);
-int		check_envp(char **envp);
-char	*check_path(char **flags_cmd, t_env *env_path);
-char 	*heredoc(char *args[]);
+/* Main executor functions */
+void    executor(t_token *tokens, t_env **env);
+void    exe_one_cmd(t_token *token, t_env **env);
+void    exe_built_ins(t_token *token, t_env **env);
 
+/* Pipeline functions */
+void    first_child(t_token *token, t_env **env, int *fd);
+void    mid_child(t_token *token, t_env **env, int *fd, int *new);
+void 	last_child(t_token *token, t_env **env, int *fd);
+void    wait_childs(pid_t final_pid, int *last_out);
 
-/*===========================================*/
-/*                  NEW EXEC                 */
-/*===========================================*/
+/* Redirection functions */
+int     open_infile(t_iofile *infiles);
+int     open_outfile(t_iofile *outfiles);
+char    *heredoc(char *delimiter);
 
-void mid_child(t_token *token, t_env *env, int *fd, int *new_fd);
-void last_child(t_token *token, t_env *env, int *fd);
-void child_aux(t_token *token, t_env *env, int fd_in, int fd_out);
-char *handle_command_path(t_token *token, t_env *env, char ***env_array);
-void setup_child_io(int fd_in, int fd_out);
-
-//  PARSING_REDIR.C
-void	parse_redirections(t_token *token);
-
-//  REDIR.C
-char	**redir_divisor(char const *s);
-
-//  UTILS_EXEC.C
-void	add_iofile(t_iofile **list, char *filename, enum e_iotype type);
-void	read_till_character_redir(char *input, int *start, int *counter);
+/* Utils */
+char    *get_path(char *cmd, t_env **env);
+char    **env_to_array(t_env *env);
+void    setup_child_io(int fd_in, int fd_out);
+char    *handle_command_path(t_token *token, t_env *env, char ***env_array);
+void	exit_fork_pipe(int type);
 
 /*===========================================*/
 /*               PARSING                     */
@@ -171,6 +157,9 @@ char	**tokenizer(char const *command);
 t_token	*last_node(t_token *lst);
 void	add_node_back(t_token **stack, t_token *new);
 t_token	*create_node(int id, char *command);
+char **redir_divisor(char const *s);
+void remove_redirection_tokens(char **tokens);
+void parse_redirections(t_token *token);
 
 /*===========================================*/
 /*                SIGNALS                    */

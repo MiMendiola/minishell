@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 11:55:47 by anadal-g          #+#    #+#             */
-/*   Updated: 2025/01/28 10:52:33 by anadal-g         ###   ########.fr       */
+/*   Created: 2025/03/26 12:31:45 by anadal-g          #+#    #+#             */
+/*   Updated: 2025/03/26 12:31:52 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static int read_heredoc_input(int infile, char *delimiter_input)
 {
@@ -35,10 +35,11 @@ static int read_heredoc_input(int infile, char *delimiter_input)
         free(line);
     return 1;
 }
-char *heredoc(char *args[])
+
+char *heredoc(char *delimiter)
 {
     int infile;
-    char *tmp_file = TMP_FILE;
+    char *tmp_file = "/tmp/minishell_heredoc.tmp";
 
     infile = open(tmp_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (infile == -1)
@@ -46,7 +47,7 @@ char *heredoc(char *args[])
         perror("Error al crear archivo temporal para heredoc");
         return NULL;
     }
-    if (!read_heredoc_input(infile, args[2]))
+    if (!read_heredoc_input(infile, delimiter))
     {
         close(infile);
         return NULL;
@@ -54,36 +55,3 @@ char *heredoc(char *args[])
     close(infile);
     return (tmp_file);
 }
-
-// char *heredoc(char *args[])
-// {
-//     int infile;
-//     char *line;
-//     char *delimiter;
-//     char *tmp_file = TMP_FILE;
-
-//     infile = open(tmp_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-//     if (infile == -1)
-//     {
-//         perror("Error al crear archivo temporal para heredoc");
-//         return NULL;
-//     }
-//     delimiter = ft_strjoin(args[2], "\n");
-//     if (!delimiter) {
-//         perror("Error al asignar delimitador");
-//         close(infile);
-//         return NULL;
-//     }
-//     line = get_next_line(0);
-//     while (line != NULL && ft_strcmp(line, delimiter) != 0) {
-//         ft_putstr_fd(line, infile);
-//         free(line);
-//         line = get_next_line(0);
-//     }
-//     free(delimiter);
-//     if (line)
-//         free(line);
-//     close(infile);
-//     return tmp_file;
-// }
-

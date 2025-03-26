@@ -1,55 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   last_chid.c                                        :+:      :+:    :+:   */
+/*   last_childs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/17 12:40:22 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/12/17 12:43:18 by anadal-g         ###   ########.fr       */
+/*   Created: 2025/03/26 12:28:31 by anadal-g          #+#    #+#             */
+/*   Updated: 2025/03/26 12:28:46 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static void execute_and_cleanup(char *path, char **tokens, char **env_array)
 {
-    int i = 0;
-    
-    i = 0;
     if (execve(path, tokens, env_array) == -1)
     {
         perror_error("Error al ejecutar el comando");
-        while (env_array[i])
-        {
-            free(env_array[i]);
-            i++;
-        }
-        free(env_array);
+        free_matrix(env_array);
         free(path);
         exit(EXIT_FAILURE);
     }
-    i = 0;
-    while (env_array[i])
-    {
-        free(env_array[i]);
-        i++;
-    }
-    free(env_array);
+    free_matrix(env_array);
     free(path);
 }
 
-void child_aux(t_token *token, t_env *env, int fd_in, int fd_out)
+void child_aux(t_token *token, t_env **env, int fd_in, int fd_out)
 {
     char *path;
     char **env_array;
 
-    path = handle_command_path(token, env, &env_array);
+    path = handle_command_path(token, *env, &env_array);
     setup_child_io(fd_in, fd_out);
     execute_and_cleanup(path, token->tokens, env_array);
 }
 
-static void setup_last_child(t_token *token, t_env *env)
+static void setup_last_child(t_token *token, t_env **env)
 {
     int fd_in;
     int fd_out;
@@ -69,7 +55,7 @@ static void setup_last_child(t_token *token, t_env *env)
     child_aux(token, env, fd_in, fd_out);
 }
 
-void last_child(t_token *token, t_env *env, int *fd)
+void last_child(t_token *token, t_env **env, int *fd)
 {
     pid_t pid;
 

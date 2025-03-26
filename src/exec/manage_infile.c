@@ -6,18 +6,18 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:24:36 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/12/17 16:54:45 by anadal-g         ###   ########.fr       */
+/*   Updated: 2025/03/26 12:34:38 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static int open_heredoc_infile(t_iofile *infile, int *error)
 {
     int fd;
     char *name;
 
-    name = heredoc(&infile->name);
+    name = heredoc(infile->name);
     if (!name)
 	{
         perror_error("Error al procesar heredoc");

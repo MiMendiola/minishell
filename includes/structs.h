@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:29:16 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/11/07 11:34:14 by anadal-g         ###   ########.fr       */
+/*   Updated: 2025/03/26 12:21:56 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ struct					s_env
 	t_env				*prev;
 	t_env				*next;
 	t_env				*env_list;
+	int             last_out;
 };
 
 #endif

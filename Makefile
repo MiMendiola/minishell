@@ -17,15 +17,16 @@ SRC_FILES	=	minishell.c \
 				env/env_creator.c \
 				env/env_utils.c \
 				env/shlvl.c \
-				exec/new_exec/executor.c \
-				exec/new_exec/exec.c \
-				exec/new_exec/childs.c \
-				exec/new_exec/last_childs.c \
-				exec/new_exec/heredoc.c \
-				exec/new_exec/manage_infile.c \
-				exec/new_exec/manage_outfile.c \
-				exec/new_exec/path.c \
-				exec/new_exec/utils_exec.c \
+				exec/executor.c \
+				exec/exec_errors.c \
+				exec/exec_one_cmd.c \
+				exec/childs.c \
+				exec/last_childs.c \
+				exec/heredoc.c \
+				exec/manage_infile.c \
+				exec/manage_outfile.c \
+				exec/path.c \
+				exec/utils_exec.c \
 				exec/parsing_redir.c \
 				exec/redir.c \
 				parsing/quotes/quote_handler.c \

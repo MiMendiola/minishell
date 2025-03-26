@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:18:11 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/11/14 10:31:49 by anadal-g         ###   ########.fr       */
+/*   Updated: 2025/03/26 12:22:48 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@
 # define ENV_TXT "env"
 # define EXIT_TXT "exit"
 # define HSTRY_TXT "history"
+
+/* ================== EXECUTOR =================== */
+
+# define PIPES 1
+# define FORK 2
 
 /* ================== MESSAGES =================== */
 # define CHILD "child error"

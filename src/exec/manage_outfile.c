@@ -6,11 +6,11 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 12:10:58 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/12/17 16:55:42 by anadal-g         ###   ########.fr       */
+/*   Updated: 2025/03/26 12:05:29 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static int	aux_open_outfile(t_iofile *outfile, int i, int count, int *error)
 {
