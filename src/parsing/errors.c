@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:24:03 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/14 13:54:03 by mmendiol         ###   ########.fr       */
+/*   Updated: 2025/03/27 11:49:15 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	show_error_reverse(char *cmd_file, char *str)
 	free(msg);
 }
 
-void	perror_error(char *msg)
-{
-	perror(msg);
-	exit(1);
-}
+// void	perror_error(char *msg)
+// {
+// 	perror(msg);
+// 	exit(1);
+// }

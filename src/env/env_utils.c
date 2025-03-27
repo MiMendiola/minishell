@@ -3,14 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 13:07:53 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/25 17:25:03 by mmendiol         ###   ########.fr       */
+/*   Updated: 2025/03/27 11:49:48 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+#include "../../includes/minishell.h"
+
+char **env_to_array(t_env *env)
+{
+    int     count = 0;
+    t_env   *tmp = env;
+    char    **env_array;
+    char    *var;
+    
+    while (tmp)
+    {
+        count++;
+        tmp = tmp->next;
+    }
+    env_array = malloc(sizeof(char *) * (count + 1));
+    if (!env_array)
+        return (NULL);
+    tmp = env;
+    count = 0;
+    while (tmp)
+    {
+        var = ft_strjoin(tmp->name, "=");
+        env_array[count] = ft_strjoin(var, tmp->value);
+        free(var);
+        if (!env_array[count])
+        {
+            free_matrix(env_array);
+            return (NULL);
+        }
+        count++;
+        tmp = tmp->next;
+    }
+    env_array[count] = NULL;
+    return (env_array);
+}
 
 t_env	*ft_new_env(char *name, char *value)
 {

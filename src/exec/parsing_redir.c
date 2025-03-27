@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 17:01:43 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/12/10 12:21:08 by anadal-g         ###   ########.fr       */
+/*   Updated: 2025/03/27 11:56:44 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,28 @@ void	rebuild_command(t_token *token)
 	}
 	free(token->command);
 	token->command = new_command;
+}
+
+void	detect_redirections(t_token *token)
+{
+	int i = 0;
+	enum e_iotype type;
+
+	while (token->tokens[i])
+	{
+		type = get_redirection_type(token->tokens[i]);
+		if ((int)type == -1)
+		{
+			i++;
+			continue ;
+		}
+		if (token->tokens[i + 1])
+		{
+			if (type == INFILE || type == HEREDOC)
+				add_iofile(&token->infile, token->tokens[i + 1], type);
+			else
+				add_iofile(&token->outfile, token->tokens[i + 1], type);
+		}
+		i += 2;
+	}
 }

@@ -6,25 +6,24 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 12:49:47 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/12/10 12:26:25 by anadal-g         ###   ########.fr       */
+/*   Updated: 2025/03/27 11:52:56 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void read_till_character_redir(char *input, int *start, int *counter)
+void	read_till_character_redir(char *input, int *start, int *counter)
 {
-    if (!input || !start || !counter)
-        return;
-    *counter = *start;
-    while (input[*counter])
+	if (!input || !start || !counter)
+		return ;
+	*counter = *start;
+	while (input[*counter])
 	{
-        if (input[*counter] == '<' || input[*counter] == '>')
-            break;
-        (*counter)++;
-    }
+		if (input[*counter] == '<' || input[*counter] == '>')
+			break ;
+		(*counter)++;
+	}
 }
-
 
 int	process_operator_or_space(char **r, char *str, int *i, int *commands)
 {

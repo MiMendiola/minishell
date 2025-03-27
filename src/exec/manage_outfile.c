@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 12:10:58 by anadal-g          #+#    #+#             */
-/*   Updated: 2025/03/26 12:05:29 by anadal-g         ###   ########.fr       */
+/*   Updated: 2025/03/27 11:52:42 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,60 +34,55 @@ static int	aux_open_outfile(t_iofile *outfile, int i, int count, int *error)
 	return (fd);
 }
 
-static int process_outfiles(t_iofile *outfiles, int count, int *error)
+static int	process_outfiles(t_iofile *outfiles, int count, int *error)
 {
-    int fd;
-    int index;
-    t_iofile *current;
+	int			fd;
+	int			index;
+	t_iofile	*current;
 
 	fd = -1;
 	index = 0;
 	current = outfiles;
-    while (current)
+	while (current)
 	{
-        fd = aux_open_outfile(current, index, count, error);
-        current = current->next;
-        index++;
-    }
-    return fd;
+		fd = aux_open_outfile(current, index, count, error);
+		current = current->next;
+		index++;
+	}
+	return (fd);
 }
 
-
-static int count_outfiles(t_iofile *outfiles)
+static int	count_outfiles(t_iofile *outfiles)
 {
-    int count;
-    t_iofile *current;
+	int			count;
+	t_iofile	*current;
 
 	count = 0;
 	current = outfiles;
-    while (current)
+	while (current)
 	{
-        count++;
-        current = current->next;
-    }
-    return count;
+		count++;
+		current = current->next;
+	}
+	return (count);
 }
 
-
-int open_outfile(t_iofile *outfiles)
+int	open_outfile(t_iofile *outfiles)
 {
-    int fd;
-    int error;
-    int count;
+	int	fd;
+	int	error;
+	int	count;
 
-    fd = -1;
-    error = 0;
-
-    if (!outfiles)
-        return STDOUT_FILENO;
-
-    count = count_outfiles(outfiles);
-    fd = process_outfiles(outfiles, count, &error);
-
-    if (error == 1 && fd > 0)
+	fd = -1;
+	error = 0;
+	if (!outfiles)
+		return (STDOUT_FILENO);
+	count = count_outfiles(outfiles);
+	fd = process_outfiles(outfiles, count, &error);
+	if (error == 1 && fd > 0)
 	{
-        close(fd);
-        fd = -1;
-    }
-    return fd;
+		close(fd);
+		fd = -1;
+	}
+	return (fd);
 }

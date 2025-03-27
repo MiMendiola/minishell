@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2025/03/26 13:16:29 by anadal-g         ###   ########.fr       */
+/*   Updated: 2025/03/27 11:50:16 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_env	*ft_new_env(char *name, char *value);
 void	ft_addback_env(t_env **lst, t_env *new);
 t_env	*ft_find_env(t_env *env_list, char *name);
 void	ft_del_env(t_env *env_node);
+char	**env_to_array(t_env *env);
 
 //  SHLVL.C
 void	set_shell_lvl_aument(t_env **envp, t_env *data);
@@ -88,18 +89,21 @@ void    first_child(t_token *token, t_env **env, int *fd);
 void    mid_child(t_token *token, t_env **env, int *fd, int *new);
 void 	last_child(t_token *token, t_env **env, int *fd);
 void    wait_childs(pid_t final_pid, int *last_out);
+void	child_aux(t_token *token, t_env *env, int fd_in, int fd_out);
 
 /* Redirection functions */
 int     open_infile(t_iofile *infiles);
 int     open_outfile(t_iofile *outfiles);
 char    *heredoc(char *delimiter);
-
+enum 	e_iotype get_redirection_type(char *token);
+void 	add_iofile(t_iofile **list, char *filename, enum e_iotype type);	
 /* Utils */
 char    *get_path(char *cmd, t_env **env);
 char    **env_to_array(t_env *env);
 void    setup_child_io(int fd_in, int fd_out);
 char    *handle_command_path(t_token *token, t_env *env, char ***env_array);
 void	exit_fork_pipe(int type);
+void 	perror_error(char *msg);
 
 /*===========================================*/
 /*               PARSING                     */
@@ -160,6 +164,11 @@ t_token	*create_node(int id, char *command);
 char **redir_divisor(char const *s);
 void remove_redirection_tokens(char **tokens);
 void parse_redirections(t_token *token);
+
+/* Añade estas declaraciones si faltan */
+int redir_counter(char *str);
+int redir_command_spliter(char **r, char *str);
+void detect_redirections(t_token *token);
 
 /*===========================================*/
 /*                SIGNALS                    */

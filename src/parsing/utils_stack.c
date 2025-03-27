@@ -6,16 +6,14 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:02:31 by mmendiol          #+#    #+#             */
-/*   Updated: 2025/03/26 13:17:15 by anadal-g         ###   ########.fr       */
+/*   Updated: 2025/03/27 11:28:02 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/* Solo funciones que son exclusivas de este archivo */
 static char **handle_redirections(char *command);
-static char **redir_divisor(char const *s);
-static void remove_redirection_tokens(char **tokens);
-static void parse_redirections(t_token *token);
 
 t_token *last_node(t_token *lst)
 {
@@ -97,66 +95,4 @@ t_token *create_node(int id, char *command)
     tokens->prev = NULL;
     tokens->next = NULL;
     return (tokens);
-}
-
-/* Implementación de redir_divisor */
-static char **redir_divisor(char const *s)
-{
-    int commands = 0;
-    char **list_commands = NULL;
-
-    if (!s)
-        return (NULL);
-    
-    commands = redir_counter((char *)s);
-    list_commands = ft_calloc(commands + 1, sizeof(char *));
-    if (!list_commands)
-        return (NULL);
-        
-    if (!redir_command_spliter(list_commands, (char *)s))
-    {
-        free(list_commands);
-        return (NULL);
-    }
-    return (list_commands);
-}
-
-/* Implementación de remove_redirection_tokens */
-static void remove_redirection_tokens(char **tokens)
-{
-    int i = 0;
-    int j;
-    
-    if (!tokens)
-        return;
-        
-    while (tokens[i])
-    {
-        if (ft_strcmp(tokens[i], "<") == 0 || ft_strcmp(tokens[i], "<<") == 0 ||
-            ft_strcmp(tokens[i], ">") == 0 || ft_strcmp(tokens[i], ">>") == 0)
-        {
-            free(tokens[i]);
-            free(tokens[i + 1]);
-            j = i;
-            while (tokens[j + 2])
-            {
-                tokens[j] = tokens[j + 2];
-                j++;
-            }
-            tokens[j] = NULL;
-            tokens[j + 1] = NULL;
-        }
-        else
-            i++;
-    }
-}
-
-/* Implementación de parse_redirections */
-static void parse_redirections(t_token *token)
-{
-    if (!token)
-        return;
-        
-    detect_redirections(token);
-    remove_redirection_tokens(token->tokens);
 }
