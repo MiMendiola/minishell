@@ -6,11 +6,20 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 12:24:16 by anadal-g          #+#    #+#             */
-/*   Updated: 2025/03/27 11:54:15 by anadal-g         ###   ########.fr       */
+/*   Updated: 2025/03/28 11:06:16 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+// static void child_process(t_token *token, t_env **env);
+
+static void execute_command(t_token *token, t_env **env)
+{
+    if (is_builtin(token->command))
+        exe_built_ins(token, env);
+    else
+        child_process(token, env);
+}
 
 static int	count_tokens(t_token *tokens)
 {
@@ -35,40 +44,53 @@ static void	one_command(t_token *token, t_env **env)
 		exe_one_cmd(token, env);
 }
 
-static void	two_or_more_cmds(t_token *tokens, t_env **env)
+static void two_or_more_cmds(t_token *tokens, t_env **env)
 {
-	int		new[2];
-	int		fd[2];
-	t_token	*current;
-	pid_t	final_pid;
-	int		last_out;
+    int     fd[2];
+    int     new_fd[2];
+    pid_t   pid;
+    t_token *current = tokens;
 
-	current = tokens;
-	final_pid = 0;
-	last_out = 0;
-	if (pipe(fd) < 0)
-		exit_fork_pipe(PIPE);
-	first_child(current, env, fd);
-	close(fd[1]);
-	current = current->next;
-	while (current->next)
+    if (pipe(fd) < 0)
+        exit_fork_pipe(PIPE);
+    pid = fork();
+    if (pid == 0) {
+        close(fd[0]);
+        dup2(fd[1], STDOUT_FILENO);
+        close(fd[1]);
+        execute_command(current, env);
+        exit(EXIT_SUCCESS);
+    }
+    close(fd[1]);
+    current = current->next;
+    while (current->next)
 	{
-		if (pipe(new) < 0)
-			exit_fork_pipe(PIPE);
-		mid_child(current, env, fd, new);
-		close(fd[0]);
-		close(new[1]);
-		fd[0] = new[0];
-		current = current->next;
-	}
-	final_pid = fork();
-	if (final_pid == 0)
-		last_child(current, env, fd);
-	else if (final_pid < 0)
-		exit_fork_pipe(FORK);
-	close(fd[0]);
-	wait_childs(final_pid, &last_out);
-	(*env)->last_out = last_out;
+        if (pipe(new_fd) < 0)
+            exit_fork_pipe(PIPE);
+        pid = fork();
+        if (pid == 0) {
+            close(new_fd[0]);
+            dup2(fd[0], STDIN_FILENO);
+            dup2(new_fd[1], STDOUT_FILENO);
+            close(fd[0]);
+            close(new_fd[1]);
+            execute_command(current, env);
+            exit(EXIT_SUCCESS);
+        }
+        close(fd[0]);
+        close(new_fd[1]);
+        fd[0] = new_fd[0];
+        current = current->next;
+    }
+    pid = fork();
+    if (pid == 0) {
+        dup2(fd[0], STDIN_FILENO);
+        close(fd[0]);
+        execute_command(current, env);
+        exit(EXIT_SUCCESS);
+    }
+    close(fd[0]);
+    while (waitpid(-1, NULL, 0) > 0);
 }
 
 void	executor(t_token *tokens, t_env **env)

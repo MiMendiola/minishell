@@ -6,38 +6,43 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 12:13:21 by anadal-g          #+#    #+#             */
-/*   Updated: 2025/03/27 11:54:07 by anadal-g         ###   ########.fr       */
+/*   Updated: 2025/03/28 11:08:01 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	child_process(t_token *token, t_env **env)
+void child_process(t_token *token, t_env **env)
 {
-	int		fd_in;
-	int		fd_out;
-	char	*path;
-	char	**env_array;
+    int     fd_in;
+    int     fd_out;
+    char    *path;
+    char    **env_array;
 
-	fd_in = open_infile(token->infile);
-	if (fd_in < 0)
-		exit(1);
-	fd_out = open_outfile(token->outfile);
-	if (fd_out < 0)
-		exit(1);
-	setup_child_io(fd_in, fd_out);
-	path = handle_command_path(token, *env, &env_array);
-	if (!path)
-	{
-		printf("minishell: %s: command not found\n", token->tokens[0]);
-		free_matrix(env_array);
-		exit(127);
-	}
-	execve(path, token->tokens, env_array);
-	perror("execve");
-	free(path);
-	free_matrix(env_array);
-	exit(126);
+    fd_in = open_infile(token->infile);
+    if (fd_in < 0)
+        exit(1);
+    fd_out = open_outfile(token->outfile);
+    if (fd_out < 0)
+        exit(1);
+    setup_child_io(fd_in, fd_out);
+    path = handle_command_path(token, *env, &env_array);
+    if (!path)
+    {
+        ft_putstr_fd("minishell: ", STDERR_FILENO);
+        ft_putstr_fd(token->tokens[0], STDERR_FILENO);
+        ft_putstr_fd(": command not found\n", STDERR_FILENO);
+        if (env_array)
+            free_matrix(env_array);
+        exit(127);  // Código de salida estándar para "command not found"
+    }
+    execve(path, token->tokens, env_array);
+    // Si execve falla:
+    perror("execve");
+    free(path);
+    if (env_array)
+        free_matrix(env_array);
+    exit(126);
 }
 
 void	exe_one_cmd(t_token *token, t_env **env)

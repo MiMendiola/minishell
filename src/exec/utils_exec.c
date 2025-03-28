@@ -6,26 +6,28 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 12:14:11 by anadal-g          #+#    #+#             */
-/*   Updated: 2025/03/27 11:53:05 by anadal-g         ###   ########.fr       */
+/*   Updated: 2025/03/28 10:57:04 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*handle_command_path(t_token *token, t_env *env, char ***env_array)
+char *handle_command_path(t_token *token, t_env *env, char ***env_array)
 {
-	char	*path;
+    char *path;
 
-	*env_array = env_to_array(env);
-	if (!*env_array)
-		return (NULL);
-	path = get_path(token->tokens[0], &env);
-	if (!path)
-	{
-		free_matrix(*env_array);
-		*env_array = NULL;
-	}
-	return (path);
+    if (!token || !token->tokens || !token->tokens[0])
+        return (NULL);
+    *env_array = env_to_array(env);
+    if (!*env_array)
+        return (NULL);
+    path = get_path(token->tokens[0], &env);
+    if (!path)
+    {
+        free_matrix(*env_array);
+        *env_array = NULL;
+    }
+    return (path);
 }
 
 void	setup_child_io(int fd_in, int fd_out)

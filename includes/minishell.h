@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:12 by anadal-g          #+#    #+#             */
-/*   Updated: 2025/03/27 11:50:16 by anadal-g         ###   ########.fr       */
+/*   Updated: 2025/03/28 11:24:26 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	do_pwd(void);
 void	do_export(t_token *token, t_env **env);
 
 //	UNSET.C
-void	do_unset(t_token *token, t_env **env);
+int do_unset(t_token *token, t_env **env);
+
 
 //	ENV.C
 void	do_env(t_env *env);
@@ -90,6 +91,8 @@ void    mid_child(t_token *token, t_env **env, int *fd, int *new);
 void 	last_child(t_token *token, t_env **env, int *fd);
 void    wait_childs(pid_t final_pid, int *last_out);
 void	child_aux(t_token *token, t_env *env, int fd_in, int fd_out);
+void	child_process(t_token *token, t_env **env);
+void	exe_one_cmd(t_token *token, t_env **env);
 
 /* Redirection functions */
 int     open_infile(t_iofile *infiles);
