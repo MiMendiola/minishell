@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:08:26 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/17 17:57:36 by mmendiol         ###   ########.fr       */
+/*   Updated: 2025/06/03 12:12:51 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,26 +59,43 @@ int	write_command(char **r, char *str, char c)
 	return (1);
 }
 
-int	command_counter(char *str, char c)
+int command_counter(char *str, char c)
 {
-	int		i;
-	int		commands;
-	char	quote;
+    int i = -1;
+    int commands = 0;
+    char quote;
+    int in_word = 0;
 
-	i = -1;
-	commands = 0;
-	while (str[++i])
-	{
-		if (str[i] && (str[i] == DQUOTES || str[i] == SQUOTES))
-		{
-			quote = str[i++];
-			jump_character(str, &i, quote, FALSE);
-		}
-		if (!character_finder(str[i], c) && (character_finder(str[i + 1], c)
-				|| str[i + 1] == '\0'))
-			commands++;
-	}
-	return (commands);
+    while (str[++i])
+    {
+        if (str[i] && (str[i] == DQUOTES || str[i] == SQUOTES))
+        {
+            quote = str[i++];
+            jump_character(str, &i, quote, FALSE);
+            if (!in_word)
+            {
+                commands++;
+                in_word = 1;
+            }
+        }
+        else if (character_finder(str[i], c))
+        {
+            in_word = 0;
+        }
+        else if (!character_finder(str[i], c) && str[i] != ' ' && str[i] != '\t')
+        {
+            if (!in_word)
+            {
+                commands++;
+                in_word = 1;
+            }
+        }
+        else if (str[i] == ' ' || str[i] == '\t')
+        {
+            // No cambiar in_word aquí para manejar espacios dentro de palabras
+        }
+    }
+    return (commands);
 }
 
 char	**command_spliter(char const *s, char c)

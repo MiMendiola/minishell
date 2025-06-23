@@ -3,20 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 16:59:23 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/10 17:07:40 by mmendiol         ###   ########.fr       */
+/*   Updated: 2025/06/02 13:08:56 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	do_pwd(void)
+int do_pwd(void)
 {
-	char	*path;
+    char *path;
 
-	path = getcwd(NULL, 0);
-	printf("%s\n", path);
-	free(path);
+    path = getcwd(NULL, 0);
+    if (!path)
+    {
+        perror("minishell: pwd");
+        return (1);
+    }
+    ft_putstr_fd(path, STDOUT_FILENO);
+    ft_putstr_fd("\n", STDOUT_FILENO);
+    free(path);
+    return (0);
 }

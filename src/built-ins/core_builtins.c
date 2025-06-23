@@ -6,7 +6,7 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 21:01:25 by mmendiol          #+#    #+#             */
-/*   Updated: 2025/03/28 13:09:25 by anadal-g         ###   ########.fr       */
+/*   Updated: 2025/06/23 13:44:01 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ int is_builtin(const char *command)
 {
     if (!command)
         return (0);
-    
-    printf("Llamada a builtin\n");  // Esta línea estaba mal indentada
     
     return (!ft_strcmp(command, "cd") ||
            !ft_strcmp(command, "echo") ||
@@ -29,33 +27,32 @@ int is_builtin(const char *command)
            !ft_strcmp(command, "history"));
 }
 
-void	select_builtin(t_token **tokens, t_env **env, char *input)
+void select_builtin(t_token **tokens, t_env **env, char *input)
 {
-	t_token	*aux;
+    t_token *token;
+    int exit_code = 0;
 
-	aux = *tokens;
-	if (!tokens || !*tokens)
-		return ;
-	while (aux)
-	{
-		if (ft_strcmp(aux->command, EXIT_TXT) == 0)
-			do_exit(tokens, input);
-		else if (ft_strncmp(aux->command, ECHO_TXT, 4) == 0)
-			do_echo(aux->command);
-		else if (ft_strcmp(aux->command, CD_TXT) == 0)
-			do_cd();
-		else if (ft_strcmp(input, PWD_TXT) == 0)
-			do_pwd();
-		// else if (ft_strcmp(input, EXPORT_TXT) == 0)
-		//	do_export();
-		else if (ft_strncmp(aux->command, UNSET_TXT, 5) == 0)
-			do_unset(*tokens, env);
-		else if (ft_strncmp(aux->command, ENV_TXT, 3) == 0)
-			do_env(*env);
-		else if (ft_strcmp(aux->command, HSTRY_TXT) == 0)
-			show_history();
-		if (ft_strcmp(input, "") != 0)
-			add_history(input); 
-		aux = aux->next;
-	}
+    if (!tokens || !*tokens || !env || !*env)
+        return;
+    
+    token = *tokens;
+    
+    if (ft_strcmp(token->command, "exit") == 0)
+        exit_code = do_exit(token, input);
+    else if (ft_strcmp(token->command, "echo") == 0)
+        exit_code = do_echo(token);
+    else if (ft_strcmp(token->command, "cd") == 0)
+        exit_code = ft_cd(token, env);
+    else if (ft_strcmp(token->command, "pwd") == 0)
+        exit_code = do_pwd();
+    else if (ft_strcmp(token->command, "export") == 0)
+        exit_code = do_export(token, env);
+    else if (ft_strcmp(token->command, "unset") == 0)
+        exit_code = do_unset(token, env);
+    else if (ft_strcmp(token->command, "env") == 0)
+        exit_code = do_env(token, *env);
+    else if (ft_strcmp(token->command, "history") == 0)
+        exit_code = show_history(token);
+    
+    (*env)->last_out = exit_code;
 }

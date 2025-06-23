@@ -3,25 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 16:58:03 by anadal-g          #+#    #+#             */
-/*   Updated: 2024/10/13 05:22:43 by lmntrix          ###   ########.fr       */
+/*   Updated: 2025/06/02 13:09:08 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	do_env(t_env *env)
+
+int do_env(t_token *token, t_env *env)
 {
-	while (env)
-	{
-		if (env->value && ft_strcmp(env-> value, ""))
-		{
-			printf("%s", env->name);
-			printf("=");
-			printf("%s\n", env->value);
-		}
-		env = env->next;
-	}
+    // env no debe aceptar argumentos según el subject
+    if (token->tokens[1])
+    {
+        ft_putstr_fd("minishell: env: too many arguments\n", STDERR_FILENO);
+        return (1);
+    }
+    
+    while (env)
+    {
+        if (env->value && ft_strcmp(env->value, ""))
+        {
+            ft_putstr_fd(env->name, STDOUT_FILENO);
+            ft_putstr_fd("=", STDOUT_FILENO);
+            ft_putstr_fd(env->value, STDOUT_FILENO);
+            ft_putstr_fd("\n", STDOUT_FILENO);
+        }
+        env = env->next;
+    }
+    return (0);
 }

@@ -6,47 +6,48 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:24:36 by anadal-g          #+#    #+#             */
-/*   Updated: 2025/03/27 11:56:26 by anadal-g         ###   ########.fr       */
+/*   Updated: 2025/06/02 12:53:50 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	open_heredoc_infile(t_iofile *infile, int *error)
+static int open_heredoc_infile(t_iofile *infile, int *error)
 {
-	int		fd;
-	char	*name;
+    int fd;
+    char *name;
 
-	name = heredoc(infile->name);
-	if (!name)
-	{
-		perror_error("Error al procesar heredoc");
-		exit(EXIT_FAILURE);
-	}
-	fd = open(name, O_RDONLY);
-	if (fd < 0)
-	{
-		perror_error(name);
-		*error = 1;
-	}
-	free(name);
-	return (fd);
+    name = heredoc(infile->name);
+    if (!name)
+    {
+        perror("Error al procesar heredoc"); // CORRECCIÓN: No usar perror_error
+        *error = 1;
+        return (-1);
+    }
+    fd = open(name, O_RDONLY);
+    if (fd < 0)
+    {
+        perror(name); // CORRECCIÓN: No usar perror_error
+        *error = 1;
+    }
+    free(name); // CORRECCIÓN: Liberar el nombre del archivo
+    return (fd);
 }
 
-static int	open_normal_infile(t_iofile *infile, int *error)
+static int open_normal_infile(t_iofile *infile, int *error)
 {
-	int	fd;
+    int fd;
 
-	fd = open(infile->name, O_RDONLY);
-	if (fd < 0)
-	{
-		perror_error(infile->name);
-		*error = 1;
-	}
-	return (fd);
+    fd = open(infile->name, O_RDONLY);
+    if (fd < 0)
+    {
+        perror(infile->name); // CORRECCIÓN: No usar perror_error
+        *error = 1;
+    }
+    return (fd);
 }
 
-int	aux_open_infile(t_iofile *infile, int i, int count, int *error)
+static int	aux_open_infile(t_iofile *infile, int i, int count, int *error)
 {
 	int	fd;
 
@@ -55,46 +56,44 @@ int	aux_open_infile(t_iofile *infile, int i, int count, int *error)
 		fd = open_normal_infile(infile, error);
 	else
 		fd = open_heredoc_infile(infile, error);
-	if (i != count - 1)
+	if (i != count - 1 && fd >= 0)
 	{
 		close(fd);
 		fd = -1;
 	}
 	return (fd);
 }
-
 int open_infile(t_iofile *infiles)
 {
-    int         fd;
-    int         error;
-    int         count;
-    int         i;
-    t_iofile    *current;
+    int fd = -1;
+    int error = 0;
+    int count, i;
+    t_iofile *current;
 
-    fd = -1;
-    error = 0;
-    count = 0;
-    current = infiles;
-    
     if (!infiles)
         return (STDIN_FILENO);
+        
+    // Contar archivos
+    count = 0;
+    current = infiles;
     while (current)
     {
         count++;
         current = current->next;
-    }   
+    }
+    
+    // Procesar archivos
     current = infiles;
     i = 0;
-    while (i < count)
+    while (current && i < count)
     {
         fd = aux_open_infile(current, i, count, &error);
+        // CORRECCIÓN: Retornar inmediatamente si hay error
+        if (error)
+            return (-1);
         current = current->next;
         i++;
-    }  
-    if (error == 1 && fd > 0)
-    {
-        close(fd);
-        fd = -1;
     }
-    return (fd);
+    
+    return (fd >= 0 ? fd : STDIN_FILENO);
 }

@@ -40,6 +40,7 @@ SRC_FILES	=	minishell.c \
 				parsing/lexer.c \
 				parsing/parsing.c \
 				parsing/utils_stack.c \
+				signals/signals.c 
 
 SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 
@@ -49,7 +50,7 @@ OBJ_FILES 	= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 #COMPILER
 CC		= cc
-FLAGS	= -Wall -Wextra -Werror  #-fsanitize=address
+FLAGS	= -Wall -Wextra -Werror  -g3#-fsanitize=address
 LDFLAGS = -lreadline
 INCLUDE	= -I includes
 RM		= rm -rf

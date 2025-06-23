@@ -6,107 +6,165 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:11:15 by anadal-g          #+#    #+#             */
-/*   Updated: 2025/03/28 11:34:23 by anadal-g         ###   ########.fr       */
+/*   Updated: 2025/06/23 13:47:39 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	show_lst(t_token **stack)
-{
-	t_token		*aux;
-	int			i;
-	t_iofile	*io_aux;
+extern int g_signal_received;
 
-	aux = *stack;
-	while (aux != NULL)
-	{
-		printf("STACK NODE	->	%p\n", *stack);
-		printf("NODE		->	%p\n", aux);
-		if (aux->prev)
-			printf("PREV COMMAND[%d]	->	%s\n", aux->prev->id,
-				aux->prev->command);
-		printf("NODE COMMAND[%d]	->	%s\n", aux->id, aux->command);
-		if (aux->tokens)
-		{
-			i = -1;
-			while (aux->tokens[++i])
-				printf("TOKEN[%d]	->	[%s]\n", i, aux->tokens[i]);
-		}
-		if (aux->infile)
-		{
-			io_aux = aux->infile;
-			while (io_aux)
-			{
-				printf("INFILE		->	[%s] (TYPE: %d)\n", io_aux->name,
-					io_aux->type);
-				io_aux = io_aux->next;
-			}
-		}
-		if (aux->outfile)
-		{
-			io_aux = aux->outfile;
-			while (io_aux)
-			{
-				printf("OUTFILE		->	[%s] (TYPE: %d)\n", io_aux->name,
-					io_aux->type);
-				io_aux = io_aux->next;
-			}
-		}
-		printf("PREV NODE	->	%p\n", aux->prev);
-		printf("NEXT NODE	->	%p\n\n\n", aux->next);
-		aux = aux->next;
-	}
+
+int validate_pipe_syntax(char *input)
+{
+    int i = 0;
+    int in_quotes = 0;
+    char quote_char = 0;
+    
+    if (!input || !*input)
+        return (1);
+    while (input[i] && (input[i] == ' ' || input[i] == '\t'))
+        i++;
+    if (input[i] == '|')
+    {
+        ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", STDERR_FILENO);
+        return (0);
+    }
+    while (input[i])
+    {
+        if ((input[i] == '"' || input[i] == '\'') && !in_quotes)
+        {
+            in_quotes = 1;
+            quote_char = input[i];
+        }
+        else if (input[i] == quote_char && in_quotes)
+        {
+            in_quotes = 0;
+            quote_char = 0;
+        }
+        else if (input[i] == '|' && !in_quotes)
+        {
+            int j = i + 1;
+            while (input[j] && (input[j] == ' ' || input[j] == '\t'))
+                j++;
+            if (input[j] == '|' || !input[j])
+            {
+                ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", STDERR_FILENO);
+                return (0);
+            }
+        }
+        i++;
+    }
+    return (1);
 }
 
-void	show_env_list(t_env **env_list)
+void show_lst(t_token **stack)
 {
-	t_env	*current_node;
+    t_token *aux;
+    int i;
+    t_iofile *io_aux;
 
-	current_node = *env_list;
-	while (current_node != NULL)
-	{
-		printf("NODE ADDRESS  ->  %p\n", current_node);
-		if (current_node->prev)
-			printf("PREV NODE     ->  %p\n", current_node->prev);
-		else
-			printf("PREV NODE     ->  [None]\n");
-		printf("ENV NAME      ->  %s\n", current_node->name);
-		printf("ENV VALUE     ->  %s\n", current_node->value);
-		if (current_node->next)
-			printf("NEXT NODE     ->  %p\n\n", current_node->next);
-		else
-			printf("NEXT NODE     ->  [None]\n\n");
-		current_node = current_node->next;
-	}
+    aux = *stack;
+    while (aux != NULL)
+    {
+        printf("STACK NODE -> %p\n", *stack);
+        printf("NODE -> %p\n", aux);
+        if (aux->prev)
+            printf("PREV COMMAND[%d] -> %s\n", aux->prev->id, aux->prev->command);
+        printf("NODE COMMAND[%d] -> %s\n", aux->id, aux->command);
+        if (aux->tokens)
+        {
+            i = -1;
+            while (aux->tokens[++i])
+                printf("TOKEN[%d] -> [%s]\n", i, aux->tokens[i]);
+        }
+        if (aux->infile)
+        {
+            io_aux = aux->infile;
+            while (io_aux)
+            {
+                printf("INFILE -> [%s] (TYPE: %d)\n", io_aux->name, io_aux->type);
+                io_aux = io_aux->next;
+            }
+        }
+        if (aux->outfile)
+        {
+            io_aux = aux->outfile;
+            while (io_aux)
+            {
+                printf("OUTFILE -> [%s] (TYPE: %d)\n", io_aux->name, io_aux->type);
+                io_aux = io_aux->next;
+            }
+        }
+        printf("PREV NODE -> %p\n", aux->prev);
+        printf("NEXT NODE -> %p\n\n\n", aux->next);
+        aux = aux->next;
+    }
 }
 
-int	main(int ac, char **av, char **env)
+int main(int ac, char **av, char **env)
 {
-	t_token	**tokens;
-	t_env	**env_list;
-	char	*input;
+    t_token **tokens;
+    t_env **env_list;
+    char *input;
 
-	tokens = ft_calloc(1, sizeof(t_token *));
-	env_list = ft_calloc(1, sizeof(t_env *));
-	if (ac == 0 && av == NULL && env == NULL)
-		printf("Hello");
-	ft_init_env(env_list, env);
-	show_env_list(env_list);
-	while (1)
-	{
-		input = readline(" 💻 $ ");
-		if (!input)
+    (void)ac;
+    (void)av;
+    tokens = ft_calloc(1, sizeof(t_token *));
+    env_list = ft_calloc(1, sizeof(t_env *));
+    if (!tokens || !env_list)
+        exit(1);
+    
+    ft_init_env(env_list, env);
+    signal_input();
+    
+    while (1)
+    {
+        input = readline(" 💻 $ ");
+        
+        // Manejar Ctrl+D (EOF)
+        if (!input)
+        {
+            ft_putstr_fd("exit\n", STDERR_FILENO);
             break;
-		free_tokens(tokens);
-		create_tokens(input, tokens);
-		if (!quotes_handler(tokens, input))
-			continue ;
-		lexerize(tokens);
-		//show_lst(tokens);
-		executor(*tokens, env_list);
-		free(input);
-	}
-	free(tokens);
-	return (0);
+        }
+        // Manejar señal recibida
+        if (g_signal_received == SIGINT)
+        {
+            if (*env_list)
+                (*env_list)->last_out = 130; // 128 + SIGINT
+            g_signal_received = 0;
+        }
+        // Comando vacío
+        if (!*input)
+        {
+            free(input);
+            continue;
+        }
+        add_history(input);
+        // Validar sintaxis
+        if (!validate_pipe_syntax(input))
+        {
+            if (*env_list)
+                (*env_list)->last_out = 2;
+            free(input);
+            continue;
+        }
+        free_tokens(tokens);
+        create_tokens(input, tokens);
+        if (!quotes_handler(tokens, input))
+        {
+            free(input);
+            continue;
+        }
+        // CORRECCIÓN: Pasar env_list como segundo parámetro
+        lexerize(tokens, *env_list);
+        executor(*tokens, env_list);
+        free(input);
+    }
+    free_tokens(tokens);
+    free(tokens);
+    free_env(env_list);
+    free(env_list);
+    return (0);
 }

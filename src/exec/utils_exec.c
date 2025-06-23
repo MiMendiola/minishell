@@ -6,38 +6,51 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 12:14:11 by anadal-g          #+#    #+#             */
-/*   Updated: 2025/03/28 10:57:04 by anadal-g         ###   ########.fr       */
+/*   Updated: 2025/06/02 12:55:07 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char *handle_command_path(t_token *token, t_env *env, char ***env_array)
-{
-    char *path;
+// char *handle_command_path(t_token *token, t_env *env, char ***env_array)
+// {
+//     char *path;
 
-    if (!token || !token->tokens || !token->tokens[0])
-        return (NULL);
-    *env_array = env_to_array(env);
-    if (!*env_array)
-        return (NULL);
-    path = get_path(token->tokens[0], &env);
-    if (!path)
-    {
-        free_matrix(*env_array);
-        *env_array = NULL;
-    }
-    return (path);
-}
+//     if (!token || !token->tokens || !token->tokens[0])
+//         return (NULL);
+//     *env_array = env_to_array(env);
+//     if (!*env_array)
+//         return (NULL);
+//     path = get_path(token->tokens[0], &env);
+//     if (!path)
+//     {
+//         free_matrix(*env_array);
+//         *env_array = NULL;
+//     }
+//     return (path);
+// }
 
-void	setup_child_io(int fd_in, int fd_out)
+// void	setup_child_io(int fd_in, int fd_out)
+// {
+// 	dup2(fd_in, STDIN_FILENO);
+// 	dup2(fd_out, STDOUT_FILENO);
+// 	if (fd_in != STDIN_FILENO)
+// 		close(fd_in);
+// 	if (fd_out != STDOUT_FILENO && fd_out != STDERR_FILENO)
+// 		close(fd_out);
+// }
+
+int validate_token(t_token *token)
 {
-	dup2(fd_in, STDIN_FILENO);
-	dup2(fd_out, STDOUT_FILENO);
-	if (fd_in != STDIN_FILENO)
-		close(fd_in);
-	if (fd_out != STDOUT_FILENO && fd_out != STDERR_FILENO)
-		close(fd_out);
+    if (!token)
+        return (0);
+    if (!token->tokens)
+        return (0);
+    if (!token->tokens[0])
+        return (0);
+    if (!token->command)
+        return (0);
+    return (1);
 }
 
 int	is_full_path(char *cmd)

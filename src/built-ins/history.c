@@ -3,27 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:05:02 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/09/28 14:12:32 by lmntrix          ###   ########.fr       */
+/*   Updated: 2025/06/02 13:09:19 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	show_history(void)
+int show_history(t_token *token)
 {
-	HIST_ENTRY	**history;
-	int			width;
-	int			i;
+    HIST_ENTRY **history;
+    int width;
+    int i;
 
-	width = 6;
-	history = history_list();
-	if (history)
-	{
-		i = -1;
-		while (history[++i])
-			ft_printf("%*d  %s\n", width, i + history_base, history[i]->line);
-	}
+    // history no debe aceptar argumentos
+    if (token->tokens[1])
+    {
+        ft_putstr_fd("minishell: history: too many arguments\n", STDERR_FILENO);
+        return (1);
+    }
+
+    width = 6;
+    history = history_list();
+    if (history)
+    {
+        i = -1;
+        while (history[++i])
+        {
+            ft_printf("%*d  %s\n", width, i + history_base, history[i]->line);
+        }
+    }
+    return (0);
 }

@@ -6,33 +6,34 @@
 /*   By: anadal-g <anadal-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 12:10:58 by anadal-g          #+#    #+#             */
-/*   Updated: 2025/03/27 11:52:42 by anadal-g         ###   ########.fr       */
+/*   Updated: 2025/06/02 12:54:12 by anadal-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static int	aux_open_outfile(t_iofile *outfile, int i, int count, int *error)
+static int aux_open_outfile(t_iofile *outfile, int i, int count, int *error)
 {
-	int	fd;
+    int fd;
 
-	fd = -1;
-	if (outfile->type == TRUNC)
-		fd = open(outfile->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else if (outfile->type == APPEND)
-		fd = open(outfile->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (fd < 0)
-	{
-		perror_error(outfile->name);
-		*error = 1;
-	}
-	if (i != count - 1)
-	{
-		close(fd);
-		fd = -1;
-	}
-	return (fd);
+    fd = -1;
+    if (outfile->type == TRUNC)
+        fd = open(outfile->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    else if (outfile->type == APPEND)
+        fd = open(outfile->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+    if (fd < 0)
+    {
+        perror(outfile->name); // CORRECCIÓN: No usar perror_error
+        *error = 1;
+    }
+    // CORRECCIÓN: Solo cerrar si fd es válido
+    if (i != count - 1 && fd >= 0)
+    {
+        close(fd);
+        fd = -1;
+    }
+    return (fd);
 }
+
 
 static int	process_outfiles(t_iofile *outfiles, int count, int *error)
 {
